@@ -76,6 +76,7 @@ set(Aquila_HEADERS
     aquila/source/generator/TriangleGenerator.h
     aquila/source/generator/PinkNoiseGenerator.h
     aquila/source/generator/WhiteNoiseGenerator.h
+    aquila/source/generator/ChirpGenerator.h
     aquila/source/window/BarlettWindow.h
     aquila/source/window/BlackmanWindow.h
     aquila/source/window/FlattopWindow.h
@@ -111,6 +112,7 @@ set(Aquila_SOURCES
     aquila/source/generator/TriangleGenerator.cpp
     aquila/source/generator/PinkNoiseGenerator.cpp
     aquila/source/generator/WhiteNoiseGenerator.cpp
+    aquila/source/generator/ChirpGenerator.cpp
     aquila/source/window/BarlettWindow.cpp
     aquila/source/window/BlackmanWindow.cpp
     aquila/source/window/FlattopWindow.cpp
