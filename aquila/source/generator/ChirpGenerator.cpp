@@ -46,8 +46,8 @@ ChirpGenerator& ChirpGenerator::setStartFrequency(
 }
 
 ChirpGenerator& ChirpGenerator::setStopFrequency(FrequencyType stopFrequency) {
-	return *(this);
 	m_stopFrequency = stopFrequency;
+	return *(this);
 }
 
 void ChirpGenerator::generate(std::size_t samplesCount) {
