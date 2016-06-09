@@ -40,6 +40,10 @@
 #include <iterator>
 #include <utility>
 #include <vector>
+#include <numeric>
+#include <algorithm>
+#include <cmath>
+#include <numeric>
 
 namespace Aquila
 {
@@ -58,6 +62,7 @@ namespace Aquila
      * C++ standard library algorithms, so feel free to use them instead of
      * manually looping and calling SignalSource::sample().
      */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
     class AQUILA_EXPORT SignalSource
     {
     public:
@@ -74,7 +79,7 @@ namespace Aquila
          *
          * @param sampleFrequency sample frequency in Hz
          */
-        SignalSource(FrequencyType sampleFrequency):
+        SignalSource(DataType sampleFrequency):
             m_data(), m_sampleFrequency(sampleFrequency)
         {
         }
@@ -88,7 +93,7 @@ namespace Aquila
          */
         template <typename Numeric>
         SignalSource(Numeric* data, std::size_t dataLength,
-                     FrequencyType sampleFrequency = 0):
+                     DataType sampleFrequency = 0):
             m_data(data, data + dataLength), m_sampleFrequency(sampleFrequency)
         {
         }
@@ -99,8 +104,8 @@ namespace Aquila
          * @param data vector of samples
          * @param sampleFrequency sample frequency in Hz
          */
-        SignalSource(const std::vector<SampleType>& data,
-                     FrequencyType sampleFrequency = 0):
+        SignalSource(const Container_t<DataType>& data,
+                     DataType sampleFrequency = 0):
             m_data(data), m_sampleFrequency(sampleFrequency)
         {
         }
@@ -112,7 +117,7 @@ namespace Aquila
          * @param sampleFrequency sample frequency in Hz
          */
         SignalSource(std::vector<SampleType>&& data,
-                     FrequencyType sampleFrequency = 0):
+                     DataType sampleFrequency = 0):
             m_data(std::move(data)), m_sampleFrequency(sampleFrequency)
         {
         }
@@ -127,7 +132,7 @@ namespace Aquila
          *
          * @return sample frequency in Hz
          */
-        virtual FrequencyType getSampleFrequency() const
+        virtual DataType getSampleFrequency() const
         {
             return m_sampleFrequency;
         }
@@ -137,7 +142,7 @@ namespace Aquila
          *
          * @param sampleFrequency sample frequency in Hz
          */
-        virtual void setSampleFrequency(FrequencyType sampleFrequency)
+        virtual void setSampleFrequency(DataType sampleFrequency)
         {
             m_sampleFrequency = sampleFrequency;
         }
@@ -149,7 +154,7 @@ namespace Aquila
          */
         virtual unsigned short getBitsPerSample() const
         {
-            return 8 * sizeof(SampleType);
+            return 8 * sizeof(DataType);
         }
 
         /**
@@ -168,7 +173,7 @@ namespace Aquila
          * @param position sample index in the signal
          * @return sample value
          */
-        virtual SampleType sample(std::size_t position) const
+        virtual DataType sample(std::size_t position) const
         {
             return m_data[position];
         }
@@ -182,7 +187,7 @@ namespace Aquila
          *
          * @return C-style array containing sample data
          */
-        virtual const SampleType* toArray() const
+        virtual const DataType* toArray() const
         {
             return &m_data[0];
         }
@@ -238,7 +243,7 @@ namespace Aquila
              * @param source pointer to a source on which the iterator will work
              * @param i index of the sample in the source
              */
-            explicit iterator(const SignalSource* source = nullptr, unsigned int i = 0):
+            explicit iterator(const SignalSource<DataType, Container_t>* source = nullptr, unsigned int i = 0):
                 m_source(source), idx(i)
             {
             }
@@ -311,7 +316,7 @@ namespace Aquila
              *
              * @return signal sample value.
              */
-            SampleType operator*() const
+            DataType operator*() const
             {
                 return m_source->sample(idx);
             }
@@ -330,7 +335,7 @@ namespace Aquila
             /**
              * Signal source - as a pointer - the iterators must be copyable.
              */
-            const SignalSource* m_source;
+            const SignalSource<DataType, Container_t>* m_source;
 
             /**
              * Iterator's position in the source.
@@ -338,38 +343,185 @@ namespace Aquila
             std::size_t idx;
         };
 
-        SignalSource& operator+=(SampleType x);
-        SignalSource& operator+=(const SignalSource& rhs);
-        SignalSource& operator*=(SampleType x);
-        SignalSource& operator*=(const SignalSource& rhs);
+		/**
+		 * Add a constant value to each sample.
+		 *
+		 * @param x value to add
+		 * @return updated source
+		 */
+        SignalSource<DataType, Container_t>& operator+=(DataType x)
+		{
+        	std::transform(
+	            std::begin(m_data),
+	            std::end(m_data),
+	            std::begin(m_data),
+	            [x] (DataType y) { return x + y; }
+	        );
+	        return *this;
+		}
+
+        /**
+         * Per-sample addition of other signal source.
+         *
+         * @param rhs source on the right-hand side of the operator
+         * @return sum of two sources
+         */
+        SignalSource<DataType, Container_t>& operator+=(const SignalSource<DataType, Container_t>& rhs)
+		{
+            std::transform(
+                std::begin(m_data),
+                std::end(m_data),
+                std::begin(rhs.m_data),
+                std::begin(m_data),
+                [] (DataType x, DataType y) { return x + y; }
+            );
+            return *this;
+		}
+
+        /**
+         * Multiply each sample by a constant value.
+         *
+         * @param x multiplier
+         * @return updated source
+         */
+        SignalSource<DataType, Container_t>& operator*=(DataType x)
+		{
+            std::transform(
+                std::begin(m_data),
+                std::end(m_data),
+                std::begin(m_data),
+                [x] (DataType y) { return x * y; }
+            );
+            return *this;
+		}
+
+        /**
+         * Per-sample multiplication with other signal source.
+         *
+         * @param rhs source on the right-hand side of the operator
+         * @return product of two sources
+         */
+        SignalSource<DataType, Container_t>& operator*=(const SignalSource<DataType, Container_t>& rhs)
+		{
+            std::transform(
+                std::begin(m_data),
+                std::end(m_data),
+                std::begin(rhs.m_data),
+                std::begin(m_data),
+                [] (DataType x, DataType y) { return x * y; }
+            );
+            return *this;
+		}
 
     protected:
         /**
          * Actual sample data.
          */
-        std::vector<SampleType> m_data;
+        Container_t<DataType> m_data;
 
         /**
          * Sample frequency of the data.
          */
-        FrequencyType m_sampleFrequency;
+        DataType m_sampleFrequency;
     };
 
-    SignalSource operator+(const SignalSource& lhs, SampleType x);
-    SignalSource operator+(SignalSource&& lhs, SampleType x);
-    SignalSource operator+(SampleType x, const SignalSource& rhs);
-    SignalSource operator+(SampleType x, SignalSource&& rhs);
-    SignalSource operator+(const SignalSource& lhs, const SignalSource& rhs);
-    SignalSource operator+(SignalSource&& lhs, const SignalSource& rhs);
-    SignalSource operator+(const SignalSource& lhs, SignalSource&& rhs);
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+	SignalSource<DataType, Container_t> operator+(const SignalSource<DataType, Container_t> & lhs, DataType x)
+	{
+        SignalSource<DataType, Container_t> result(lhs);
+        return result += x;
+	}
 
-    SignalSource operator*(const SignalSource& lhs, SampleType x);
-    SignalSource operator*(SignalSource&& lhs, SampleType x);
-    SignalSource operator*(SampleType x, const SignalSource& rhs);
-    SignalSource operator*(SampleType x, SignalSource&& rhs);
-    SignalSource operator*(const SignalSource& lhs, const SignalSource& rhs);
-    SignalSource operator*(SignalSource&& lhs, const SignalSource& rhs);
-    SignalSource operator*(const SignalSource& lhs, SignalSource&& rhs);
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator+(SignalSource<DataType, Container_t> && lhs, DataType x)
+	{
+        lhs += x;
+        return std::move(lhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+	SignalSource<DataType, Container_t> operator+(DataType x, const SignalSource<DataType, Container_t>& rhs)
+	{
+        SignalSource<DataType, Container_t> result(rhs);
+        return result += x;
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator+(DataType x, SignalSource<DataType, Container_t>&& rhs)
+	{
+        rhs += x;
+        return std::move(rhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator+(const SignalSource<DataType, Container_t>& lhs, const SignalSource<DataType, Container_t>& rhs)
+	{
+        SignalSource<DataType, Container_t> result(lhs);
+        return result += rhs;
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator+(SignalSource<DataType, Container_t>&& lhs, const SignalSource<DataType, Container_t>& rhs)
+	{
+        lhs += rhs;
+        return std::move(lhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator+(const SignalSource<DataType, Container_t>& lhs, SignalSource<DataType, Container_t>&& rhs)
+	{
+        rhs += lhs;
+        return std::move(rhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(const SignalSource<DataType, Container_t>& lhs, DataType x)
+	{
+        SignalSource<DataType, Container_t> result(lhs);
+        return result *= x;
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(SignalSource<DataType, Container_t>&& lhs, DataType x)
+	{
+        lhs *= x;
+        return std::move(lhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(DataType x, const SignalSource<DataType, Container_t>& rhs)
+	{
+        SignalSource<DataType, Container_t> result(rhs);
+        return result *= x;
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(DataType x, SignalSource<DataType, Container_t>&& rhs)
+	{
+        rhs *= x;
+        return std::move(rhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(const SignalSource<DataType, Container_t>& lhs, const SignalSource<DataType, Container_t>& rhs)
+	{
+        SignalSource<DataType, Container_t> result(lhs);
+        return result *= rhs;
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(SignalSource<DataType, Container_t>&& lhs, const SignalSource<DataType, Container_t>& rhs)
+	{
+        lhs *= rhs;
+        return std::move(lhs);
+	}
+
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    SignalSource<DataType, Container_t> operator*(const SignalSource<DataType, Container_t>& lhs, SignalSource<DataType, Container_t>&& rhs)
+	{
+        rhs *= lhs;
+        return std::move(rhs);
+	}
 
     /***************************************************************************
      *
@@ -377,17 +529,87 @@ namespace Aquila
      *
      **************************************************************************/
 
-    double mean(const SignalSource& source);
+	/**
+	 * Calculates mean value of the signal.
+	 *
+	 * @param source signal source
+	 * @return signal mean
+	 */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    DataType mean(const SignalSource<DataType, Container_t>& source)
+	{
+        DataType sum = std::accumulate(std::begin(source), std::end(source), 0.0);
+        return sum / source.getSamplesCount();
+	}
 
-    double energy(const SignalSource& source);
+    /**
+     * Calculates energy of the signal.
+     *
+     * @param source signal source
+     * @return signal energy
+     */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    DataType energy(const SignalSource<DataType, Container_t>& source)
+	{
+        return std::accumulate(
+            std::begin(source),
+            std::end(source),
+            0.0,
+            [] (DataType acc, DataType value) {
+                return acc + value * value;
+            }
+        );
+	}
 
-    double power(const SignalSource& source);
+    /**
+     * Calculates power of the signal.
+     *
+     * @param source signal source
+     * @return signal power
+     */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    DataType power(const SignalSource<DataType, Container_t>& source)
+	{
+        return energy(source) / source.getSamplesCount();
+	}
 
-    double norm(const SignalSource& source);
+    /**
+     * Calculates Euclidean (L2) norm of the signal.
+     *
+     * @param source signal source
+     * @return norm
+     */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    DataType norm(const SignalSource<DataType, Container_t>& source)
+	{
+		return std::sqrt(energy(source));
+	}
 
-    double rms(const SignalSource& source);
+    /**
+     * Calculates root mean square level of the signal.
+     *
+     * @param source signal source
+     * @return RMS level
+     */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    DataType rms(const SignalSource<DataType, Container_t>& source)
+	{
+		return std::sqrt(power(source));
+	}
 
-    SampleType ApplyFirFilter(const SignalSource& source, const SampleType x[]);
+    /**
+     * Applies a Signal Source as an fir filter to an array of samples. Returns the summed output.
+     *
+     * @author Robert C. Taylor
+     * @param source the SignalSource to multiply the samples by.
+     * @param x the array of samples the fir filter is being applied to. Should be at least the size of the signal source.
+     * @return The output of the fir filter applied to the array of samples.
+     */
+	template <typename DataType, template <typename ...> class Container_t = std::vector>
+    DataType ApplyFirFilter(const SignalSource<DataType, Container_t>& source, const DataType x[])
+	{
+		return std::inner_product(source.begin(), source.end(), x, 0.0);
+	}
 }
 
 #endif // SIGNALSOURCE_H
