@@ -263,19 +263,11 @@ namespace Aquila
      *
      * @author Robert C. Taylor
      * @param source the SignalSource to multiply the samples by.
-     * @param x the array of samples the fir filter is being applied to.
-     * @param size the length of the array of samples.
+     * @param x the array of samples the fir filter is being applied to. Should be at least the size of the signal source.
      * @return The output of the fir filter applied to the array of samples.
      */
     SampleType ApplyFirFilter(const SignalSource& source, const SampleType x[], std::size_t size)
     {
-    	int i = 0;
-    	SampleType accumulator;
-    	for(auto it = source.begin(); it!=source.end() && i < size; ++it, ++i)
-    	{
-    		accumulator = (*it)*x[i];
-    	}
-
-    	return accumulator;
+    	return std::inner_product(source.begin(), source.end(), x, 0.0);
     }
 }

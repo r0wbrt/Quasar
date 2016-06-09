@@ -387,7 +387,7 @@ namespace Aquila
 
     double rms(const SignalSource& source);
 
-    SampleType ApplyFirFilter(const SignalSource& source, const SampleType x[], std::size_t size);
+    SampleType ApplyFirFilter(const SignalSource& source, const SampleType x[]);
 }
 
 #endif // SIGNALSOURCE_H
