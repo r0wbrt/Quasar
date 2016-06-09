@@ -195,6 +195,30 @@ namespace Aquila
 
         return max;
     }
+
+    template<typename T>
+    T exp(T arg)
+    {
+    	return std::cos(arg);
+    }
+
+    template<typename T>
+    T exp(T arg, std::function<T(T)> cos)
+    {
+    	return cos(arg);
+    }
+
+    template<typename T>
+    std::complex<T> exp(T arg)
+    {
+    	return std::complex<T>(std::cos(arg), std::sin(arg));
+    }
+
+    template<typename T>
+    std::complex<T> exp(std::complex<T> arg, std::function<std::complex<T>(T)> func)
+    {
+        return func;
+    }
 }
 
 #endif // FUNCTIONS_H

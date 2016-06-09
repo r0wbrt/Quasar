@@ -24,10 +24,10 @@
 #include <cstddef>
 #include <functional>
 #include <vector>
+#include "SignalSource.h"
 
 namespace Aquila
 {
-    class SignalSource;
 
     /**
      * A lightweight wrapper for a vector of Frames.
@@ -47,38 +47,128 @@ namespace Aquila
      * using begin() and end() methods. These calls simply return iterators
      * pointing to the underlying container.
      */
-    class AQUILA_EXPORT FramesCollection
+
+	SignalSourceTemplate
+	class FramesCollection
     {
         /**
          * Internal storage type.
          */
-        typedef std::vector<Frame> Container;
+        typedef std::vector<SignalSourceTemplatedType(Frame)> Container;
 
     public:
         /**
          * An iterator for the collection.
          */
-        typedef Container::iterator iterator;
+
+        typedef typename Container::iterator iterator;
 
         /**
          * A const iterator for the collection.
          */
-        typedef Container::const_iterator const_iterator;
+        typedef typename Container::const_iterator const_iterator;
 
-        FramesCollection();
-        FramesCollection(const SignalSource& source,
-                         unsigned int samplesPerFrame,
-                         unsigned int samplesPerOverlap = 0);
-        ~FramesCollection();
+        /**
+         * Creates an empty frames collection.
+         */
+        FramesCollection():
+            m_frames(), m_samplesPerFrame(0)
+        {
+        }
 
-        static FramesCollection createFromDuration(const SignalSource& source,
-                                                   double frameDuration,
-                                                   double overlap = 0.0);
+        /**
+         * Creates a collection and creates frames from the source.
+         *
+         * @param source a reference to source object
+         * @param samplesPerFrame how many samples will each frame hold
+         * @param samplesPerOverlap how many samples are common to adjacent frames
+         */
+        FramesCollection(const SignalSourceType& source,
+                         std::size_t samplesPerFrame,
+                         std::size_t samplesPerOverlap = 0):
+			 m_frames(), m_samplesPerFrame(0)
+		 {
+			 divideFrames(source, samplesPerFrame, samplesPerOverlap);
+		 }
 
-        void divideFrames(const SignalSource& source,
-                          unsigned int samplesPerFrame,
-                          unsigned int samplesPerOverlap = 0);
-        void clear();
+        /**
+         * Destroys the collection, clearing the container.
+         */
+        ~FramesCollection()
+        {
+            clear();
+        }
+
+        /**
+         * Creates a collection when duration of each frame is known.
+         *
+         * @param source a reference to source object
+         * @param frameDuration frame duration in milliseconds
+         * @param overlap overlap as a fraction of frame length (0.0 - 1.0)
+         */
+        static SignalSourceTemplatedType(FramesCollection) createFromDuration(const SignalSourceType& source,
+                                                   DataType frameDuration,
+                                                   DataType overlap = 0.0)
+	    {
+		   std::size_t samplesPerFrame = static_cast<std::size_t>(
+			   source.getSampleFrequency() * frameDuration / 1000.0
+		   );
+		   std::size_t samplesPerOverlap = static_cast<std::size_t>(
+			   samplesPerFrame * overlap
+		   );
+		   return SignalSourceTemplatedType(FramesCollection)(source, samplesPerFrame, samplesPerOverlap);
+	    }
+
+        /**
+         * Performs the actual frame division.
+         *
+         * Frames are only "pointing" to the original source. There is no copying
+         * of sample data. Each frame can be considered as a standalone fragment
+         * of the source data.
+         *
+         * @param source a reference to source object
+         * @param samplesPerFrame how many samples will each frame hold
+         * @param samplesPerOverlap how many samples are common to adjacent frames
+         */
+        void divideFrames(const SignalSourceType& source,
+                          std::size_t samplesPerFrame,
+                          std::size_t samplesPerOverlap = 0)
+        {
+        	if (samplesPerFrame == 0)
+			{
+				return;
+			}
+			m_samplesPerFrame = samplesPerFrame;
+			const std::size_t sourceSize = source.getSamplesCount();
+			const std::size_t nonOverlapped = samplesPerFrame - samplesPerOverlap;
+			const std::size_t framesCount = sourceSize / nonOverlapped;
+
+			m_frames.reserve(framesCount);
+			std::size_t indexBegin = 0, indexEnd = 0;
+			for (std::size_t i = 0; i < framesCount; ++i)
+			{
+				// calculate each frame boundaries
+				// when frame end exceeds source size, break out
+				indexBegin = i * nonOverlapped;
+				indexEnd = indexBegin + samplesPerFrame;
+				if (indexEnd <= sourceSize)
+				{
+					m_frames.push_back(SignalSourceTemplatedType(Frame)(source, indexBegin, indexEnd));
+				}
+				else
+				{
+					break;
+				}
+			}
+        }
+
+        /**
+         * Deletes all contained frames and clears the collection.
+         */
+        void clear()
+        {
+            m_frames.clear();
+        }
 
         /**
          * Returns number of frames in the collection.
@@ -95,7 +185,7 @@ namespace Aquila
          *
          * @return frame size in samples
          */
-        unsigned int getSamplesPerFrame() const
+        std::size_t getSamplesPerFrame() const
         {
             return m_samplesPerFrame;
         }
@@ -106,7 +196,7 @@ namespace Aquila
          * @param index index of the frame in the collection
          * @return Frame instance
          */
-        Frame frame(std::size_t index) const
+        SignalSourceTemplatedType(Frame) frame(std::size_t index) const
         {
             return m_frames[index];
         }
@@ -159,7 +249,7 @@ namespace Aquila
          */
         template <typename ResultType>
         std::vector<ResultType> apply(
-            std::function<ResultType (const SignalSource&)> f) const
+            std::function<ResultType (const SignalSourceType&)> f) const
         {
             std::vector<ResultType> results;
             std::transform(begin(), end(), std::back_inserter(results), f);
@@ -175,7 +265,7 @@ namespace Aquila
         /**
          * Number of samples in each frame.
          */
-        unsigned int m_samplesPerFrame;
+        std::size_t m_samplesPerFrame;
     };
 }
 

@@ -100,9 +100,9 @@ set(Aquila_SOURCES
     aquila/filter/MelFilter.cpp
     aquila/filter/MelFilterBank.cpp
     aquila/ml/Dtw.cpp
-    aquila/source/SignalSource.cpp
-    aquila/source/Frame.cpp
-    aquila/source/FramesCollection.cpp
+#   aquila/source/SignalSource.cpp
+#   aquila/source/Frame.cpp
+#   aquila/source/FramesCollection.cpp
     aquila/source/PlainTextFile.cpp
     aquila/source/WaveFile.cpp
     aquila/source/WaveFileHandler.cpp

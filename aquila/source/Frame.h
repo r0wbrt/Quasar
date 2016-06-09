@@ -46,14 +46,63 @@ namespace Aquila
      * frame:                          |xxxxxxxxxxxx|
      * sample number in frame:         0             M              @endverbatim
      */
-    class AQUILA_EXPORT Frame : public SignalSource
+	SignalSourceClass(Frame)
     {
     public:
-        Frame(const SignalSource& source, unsigned int indexBegin,
-                unsigned int indexEnd);
-        Frame(const Frame& other);
-        Frame(Frame&& other);
-        Frame& operator=(const Frame& other);
+
+	    /**
+	     * Creates the frame object - sets signal source and frame boundaries.
+	     *
+	     * Frame should not change original data, so the source is a const
+	     * reference.
+	     *
+	     * @param source const reference to signal source
+	     * @param indexBegin position of first sample of this frame in the source
+	     * @param indexEnd position of last sample of this frame in the source
+	     */
+	    Frame(const SignalSourceType& source, unsigned int indexBegin,
+	            unsigned int indexEnd):
+	        SignalSourceType(source.getSampleFrequency()),
+	        m_source(&source), m_begin(indexBegin),
+	        m_end((indexEnd > source.getSamplesCount()) ? source.getSamplesCount() : indexEnd)
+	    {
+	    }
+
+	    /**
+	     * Copy constructor.
+	     *
+	     * @param other reference to another frame
+	     */
+	    Frame(const Frame &other):
+	        SignalSourceType(other.m_sampleFrequency),
+	        m_source(other.m_source), m_begin(other.m_begin), m_end(other.m_end)
+	    {
+	    }
+
+	    /**
+	     * Move constructor.
+	     *
+	     * @param other rvalue reference to another frame
+	     */
+	    Frame(Frame&& other):
+	        SignalSourceType(other.m_sampleFrequency),
+	        m_source(other.m_source), m_begin(other.m_begin), m_end(other.m_end)
+	    {
+	    }
+
+	    /**
+	     * Assignes another frame to this one using copy-and-swap idiom.
+	     *
+	     * @param other reference to another frame
+	     * @return reference to the current object
+	     */
+	    SignalSourceTemplatedType(Frame)& operator=(const SignalSourceTemplatedType(Frame)& other)
+	    {
+	        Frame temp(other);
+	        swap(temp);
+
+	        return *this;
+	    }
 
         /**
          * Returns the frame length.
@@ -81,7 +130,7 @@ namespace Aquila
          * @param position index of the sample in the frame
          * @return sample value
          */
-        virtual SampleType sample(std::size_t position) const
+        virtual DataType sample(std::size_t position) const
         {
             return m_source->sample(m_begin + position);
         }
@@ -94,7 +143,7 @@ namespace Aquila
          *
          * @return C-style array containing sample data
          */
-        virtual const SampleType* toArray() const
+        virtual const DataType* toArray() const
         {
             return m_source->toArray() + static_cast<std::ptrdiff_t>(m_begin);
         }
@@ -103,7 +152,7 @@ namespace Aquila
         /**
          * A non-owning pointer to constant original source (eg. a WAVE file).
          */
-        const SignalSource* m_source;
+        const SignalSourceType* m_source;
 
         /**
          * First and last sample of this frame in the data array/vector.
