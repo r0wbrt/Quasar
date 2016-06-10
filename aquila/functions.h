@@ -33,7 +33,7 @@ namespace Aquila
      * @return value in dB
      */
     template<typename Numeric>
-    AQUILA_EXPORT inline Numeric dB(Numeric value)
+    inline Numeric dB(Numeric value)
     {
         return 20.0 * std::log10(value);
     }
@@ -44,7 +44,8 @@ namespace Aquila
      * @param value input value (complex number)
      * @return magnitude in dB
      */
-    AQUILA_EXPORT inline double dB(ComplexType value)
+    template<typename complex, typename Numeric>
+    inline Numeric dB(complex<Numeric> value)
     {
         return dB(std::abs(value));
     }
@@ -57,7 +58,7 @@ namespace Aquila
      * @return value in dB, relative to reference value
      */
     template<typename Numeric>
-    AQUILA_EXPORT inline Numeric dB(Numeric value, Numeric refValue)
+     Numeric dB(Numeric value, Numeric refValue)
     {
         return 20.0 * std::log10(value / refValue);
     }
@@ -71,7 +72,7 @@ namespace Aquila
      * @return bounded value
      */
     template<typename Numeric>
-    AQUILA_EXPORT inline Numeric clamp(Numeric min, Numeric value, Numeric max)
+    Numeric clamp(Numeric min, Numeric value, Numeric max)
     {
         return std::max(min, std::min(value, max));
     }
@@ -142,10 +143,11 @@ namespace Aquila
      * @param v2 second vector
      * @return Euclidean distance
      */
-    AQUILA_EXPORT inline double euclideanDistance(const std::vector<double>& v1,
-                                                  const std::vector<double>& v2)
+    template <typename DataType>
+    DataType euclideanDistance(const std::vector<DataType>& v1,
+                                                  const std::vector<DataType>& v2)
     {
-        double distance = 0.0;
+        DataType distance = 0.0;
         for (std::size_t i = 0, size = v1.size(); i < size; i++)
         {
             distance += (v1[i] - v2[i])*(v1[i] - v2[i]);
@@ -161,10 +163,11 @@ namespace Aquila
      * @param v2 second vector
      * @return Manhattan distance
      */
-    AQUILA_EXPORT inline double manhattanDistance(const std::vector<double>& v1,
-                                                  const std::vector<double>& v2)
+    template <typename DataType>
+    DataType manhattanDistance(const std::vector<DataType>& v1,
+                                                  const std::vector<DataType>& v2)
     {
-        double distance = 0.0;
+        DataType distance = 0.0;
         for (std::size_t i = 0, size = v1.size(); i < size; i++)
         {
             distance += std::abs(v1[i] - v2[i]);
@@ -180,10 +183,11 @@ namespace Aquila
      * @param v2 second vector
      * @return Chebyshev distance
      */
-    AQUILA_EXPORT inline double chebyshevDistance(const std::vector<double>& v1,
-                                                  const std::vector<double>& v2)
+    template <typename DataType>
+    DataType chebyshevDistance(const std::vector<DataType>& v1,
+                                                  const std::vector<DataType>& v2)
     {
-        double distance = 0.0, max = 0.0;
+        DataType distance = 0.0, max = 0.0;
         for (std::size_t i = 0, size = v1.size(); i < size; i++)
         {
             distance = std::abs(v1[i] - v2[i]);
@@ -194,6 +198,18 @@ namespace Aquila
         }
 
         return max;
+    }
+
+    template <typename T, typename complex>
+    complex exp(T arg)
+    {
+    	return complex(std::cos(arg), std::sin(arg));
+    }
+
+    template<typename T, typename complex>
+    complex exp(T arg, std::function<complex(T)> func)
+    {
+    	return func(arg);
     }
 
     template<typename T>

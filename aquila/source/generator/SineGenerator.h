@@ -22,16 +22,42 @@
 
 namespace Aquila
 {
-    /**
-     * Sine wave generator.
-     */
-    class AQUILA_EXPORT SineGenerator : public Generator
-    {
-    public:
-        SineGenerator(FrequencyType sampleFrequency);
 
-        virtual void generate(std::size_t samplesCount);
-    };
+/**
+ * Sine wave generator.
+ */
+GeneratorClass(SineGenerator)
+{
+public:
+	/**
+	 * Creates the generator object.
+	 *
+	 * @param sampleFrequency sample frequency of the signal
+	 */
+	SineGenerator(FieldType sampleFrequency) : Generator<DataType, FieldType, Container_t>::Generator(sampleFrequency)
+	{
+
+	}
+
+	/**
+	 * Fills the buffer with generated sine samples.
+	 *
+	 * @param samplesCount how many samples to generate
+	 */
+	void generate(std::size_t samplesCount)
+	{
+		this->m_data.resize(samplesCount);
+		FieldType normalizedFrequency = this->m_frequency /
+									 static_cast<FieldType>(this->m_sampleFrequency);
+		for (std::size_t i = 0; i < samplesCount; ++i)
+		{
+			this->m_data[i] = this->m_amplitude * std::sin(
+				2.0 * M_PI * normalizedFrequency * i +
+				this->m_phase * 2.0 * M_PI
+			);
+		}
+	}
+};
 }
 
 #endif // SINEGENERATOR_H

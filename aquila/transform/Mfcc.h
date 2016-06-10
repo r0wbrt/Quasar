@@ -19,13 +19,13 @@
 #define MFCC_H
 
 #include "../global.h"
+#include "../source/SignalSource.h"
 #include "FftFactory.h"
 #include <cstddef>
 #include <vector>
 
 namespace Aquila
 {
-    class SignalSource;
 
     /**
      * The Mfcc class implements calculation of MFCC features from input signal.

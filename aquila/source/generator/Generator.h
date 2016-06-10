@@ -24,10 +24,13 @@
 
 namespace Aquila
 {
+#define GeneratorClassTemplate template <typename DataType, typename FieldType = DataType, template<typename ...> class Container_t = std::vector >
+#define GeneratorClass(className) GeneratorClassTemplate class className : public Aquila::Generator<DataType, FieldType, Container_t>
     /**
      * The base interface for signal generators.
      */
-    class AQUILA_EXPORT Generator : public SignalSource
+	template <typename DataType, typename FieldType = DataType, template<typename ...> class Container_t = std::vector >
+	class Generator : public SignalSource<DataType, Container_t>
     {
     public:
         /**
@@ -35,7 +38,11 @@ namespace Aquila
          *
          * @param sampleFrequency sample frequency of the data in array
          */
-        Generator(FrequencyType sampleFrequency);
+	    Generator(FrequencyType sampleFrequency):
+	        SignalSourceType(sampleFrequency), m_frequency(0), m_amplitude(0),
+	        m_phase(0.0)
+	    {
+	    }
 
         /**
          * Sets frequency of the generated signal.
@@ -56,7 +63,7 @@ namespace Aquila
          * @param amplitude signal amplitude
          * @return the current object for fluent interface
          */
-        Generator& setAmplitude(SampleType amplitude)
+        Generator& setAmplitude(FieldType amplitude)
         {
             m_amplitude = amplitude;
 
@@ -69,7 +76,7 @@ namespace Aquila
          * @param phase phase shift (0 < phase <= 1)
          * @return the current object for fluent interface
          */
-        Generator& setPhase(double phase)
+        Generator& setPhase(FieldType phase)
         {
             m_phase = phase;
 
@@ -87,17 +94,17 @@ namespace Aquila
         /**
          * Frequency of the generated signal (not always used).
          */
-        FrequencyType m_frequency;
+        FieldType m_frequency;
 
         /**
          * Amplitude of the generated signal (not always used).
          */
-        SampleType m_amplitude;
+        FieldType m_amplitude;
 
         /**
          * Phase shift as a fraction of whole period (default = 0.0).
          */
-        double m_phase;
+        FieldType m_phase;
     };
 }
 

@@ -19,14 +19,5 @@
 
 namespace Aquila
 {
-    /**
-     * Creates the generator object.
-     *
-     * @param sampleFrequency sample frequency of the signal
-     */
-    Generator::Generator(FrequencyType sampleFrequency):
-        SignalSource(sampleFrequency), m_frequency(0), m_amplitude(0),
-        m_phase(0.0)
-    {
-    }
+
 }
