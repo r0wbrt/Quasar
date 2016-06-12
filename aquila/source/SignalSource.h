@@ -47,8 +47,8 @@
 namespace Aquila {
 
 //Various template defines to reduce clutter.
-#define SignalSourceClass(name) template<typename DataType, template<typename ...> class Container_t = std::vector> class name : public SignalSource<DataType, Container_t>
-#define SignalSourceTemplate template<typename DataType, template<typename ...> class Container_t = std::vector>
+#define SignalSourceClass(name) template<typename DataType = SampleType, template<typename ...> class Container_t = std::vector> class name : public SignalSource<DataType, Container_t>
+#define SignalSourceTemplate template<typename DataType = SampleType, template<typename ...> class Container_t = std::vector>
 #define SignalSourceTemplatedType(name) name<DataType, Container_t>
 #define SignalSourceType SignalSource<DataType, Container_t>
 
@@ -67,7 +67,7 @@ namespace Aquila {
  * C++ standard library algorithms, so feel free to use them instead of
  * manually looping and calling SignalSource::sample().
  */
-template <typename DataType, template<typename ...> class Container_t = std::vector>
+SignalSourceTemplate
 class SignalSource
 {
 public:

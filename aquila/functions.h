@@ -44,7 +44,7 @@ namespace Aquila
      * @param value input value (complex number)
      * @return magnitude in dB
      */
-    template<typename complex, typename Numeric>
+    template<template <typename ...> typename complex, typename Numeric>
     inline Numeric dB(complex<Numeric> value)
     {
         return dB(std::abs(value));
@@ -198,42 +198,6 @@ namespace Aquila
         }
 
         return max;
-    }
-
-    template <typename T, typename complex>
-    complex exp(T arg)
-    {
-    	return complex(std::cos(arg), std::sin(arg));
-    }
-
-    template<typename T, typename complex>
-    complex exp(T arg, std::function<complex(T)> func)
-    {
-    	return func(arg);
-    }
-
-    template<typename T>
-    T exp(T arg)
-    {
-    	return std::cos(arg);
-    }
-
-    template<typename T>
-    T exp(T arg, std::function<T(T)> cos)
-    {
-    	return cos(arg);
-    }
-
-    template<typename T>
-    std::complex<T> exp(T arg)
-    {
-    	return std::complex<T>(std::cos(arg), std::sin(arg));
-    }
-
-    template<typename T>
-    std::complex<T> exp(std::complex<T> arg, std::function<std::complex<T>(T)> func)
-    {
-        return func;
     }
 }
 

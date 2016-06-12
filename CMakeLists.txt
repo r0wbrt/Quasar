@@ -53,23 +53,23 @@ set(Aquila_HEADERS
     aquila/aquila.h
     aquila/global.h
     aquila/functions.h
-    aquila/Exceptions.h
-    aquila/source.h
-    aquila/tools.h
-    aquila/transform.h
-    aquila/filter.h
-    aquila/ml.h
-    aquila/filter/MelFilter.h
-    aquila/filter/MelFilterBank.h
-    aquila/ml/DtwPoint.h
-    aquila/ml/Dtw.h
+#    aquila/Exceptions.h
+#    aquila/source.h
+#    aquila/tools.h
+#    aquila/transform.h
+#    aquila/filter.h
+#    aquila/ml.h
+#    aquila/filter/MelFilter.h
+#    aquila/filter/MelFilterBank.h
+#    aquila/ml/DtwPoint.h
+#    aquila/ml/Dtw.h
     aquila/source/SignalSource.h
     aquila/source/Frame.h
     aquila/source/FramesCollection.h
-    aquila/source/PlainTextFile.h
-    aquila/source/RawPcmFile.h
-    aquila/source/WaveFile.h
-    aquila/source/WaveFileHandler.h
+#    aquila/source/PlainTextFile.h
+#    aquila/source/RawPcmFile.h
+#    aquila/source/WaveFile.h
+#    aquila/source/WaveFileHandler.h
     aquila/source/generator/Generator.h
     aquila/source/generator/SineGenerator.h
     aquila/source/generator/SquareGenerator.h
@@ -77,66 +77,49 @@ set(Aquila_HEADERS
     aquila/source/generator/PinkNoiseGenerator.h
     aquila/source/generator/WhiteNoiseGenerator.h
     aquila/source/generator/ChirpGenerator.h
-    aquila/source/window/BarlettWindow.h
-    aquila/source/window/BlackmanWindow.h
-    aquila/source/window/FlattopWindow.h
-    aquila/source/window/GaussianWindow.h
-    aquila/source/window/HammingWindow.h
-    aquila/source/window/HannWindow.h
-    aquila/source/window/RectangularWindow.h
-    aquila/source/window/WelchWindow.h
-    aquila/source/window/CosineWindow.h
-    aquila/source/window/NuttallWindow.h
-    aquila/source/window/BlackmanNuttallWindow.h
-    aquila/source/window/BlackmanHarrisWindow.h
-    aquila/transform/Fft.h
-    aquila/transform/Dft.h
-    aquila/transform/AquilaFft.h
-    aquila/transform/OouraFft.h
-    aquila/transform/FftFactory.h
-    aquila/transform/Dct.h
-    aquila/transform/Mfcc.h
-    aquila/transform/Spectrogram.h
-    aquila/tools/TextPlot.h
+#    aquila/source/window/BarlettWindow.h
+#    aquila/source/window/BlackmanWindow.h
+#    aquila/source/window/FlattopWindow.h
+#    aquila/source/window/GaussianWindow.h
+#    aquila/source/window/HammingWindow.h
+#    aquila/source/window/HannWindow.h
+#    aquila/source/window/RectangularWindow.h
+#    aquila/transform/Fft.h
+#    aquila/transform/Dft.h
+#    aquila/transform/AquilaFft.h
+#    aquila/transform/OouraFft.h
+#    aquila/transform/FftFactory.h
+#    aquila/transform/Dct.h
+#    aquila/transform/Mfcc.h
+#    aquila/transform/Spectrogram.h
+#    aquila/tools/TextPlot.h
 )
 
 # library sources
 set(Aquila_SOURCES
-    aquila/filter/MelFilter.cpp
-    aquila/filter/MelFilterBank.cpp
-    aquila/ml/Dtw.cpp
+#    aquila/filter/MelFilter.cpp
+#    aquila/filter/MelFilterBank.cpp
+#    aquila/ml/Dtw.cpp
 #   aquila/source/SignalSource.cpp
 #   aquila/source/Frame.cpp
 #   aquila/source/FramesCollection.cpp
-    aquila/source/PlainTextFile.cpp
-    aquila/source/WaveFile.cpp
-    aquila/source/WaveFileHandler.cpp
-    aquila/source/generator/Generator.cpp
-    aquila/source/generator/SineGenerator.cpp
-    aquila/source/generator/SquareGenerator.cpp
-    aquila/source/generator/TriangleGenerator.cpp
-    aquila/source/generator/PinkNoiseGenerator.cpp
-    aquila/source/generator/WhiteNoiseGenerator.cpp
-    aquila/source/generator/ChirpGenerator.cpp
-    aquila/source/window/BarlettWindow.cpp
-    aquila/source/window/BlackmanWindow.cpp
-    aquila/source/window/FlattopWindow.cpp
-    aquila/source/window/GaussianWindow.cpp
-    aquila/source/window/HammingWindow.cpp
-    aquila/source/window/HannWindow.cpp
-    aquila/source/window/WelchWindow.cpp
-    aquila/source/window/CosineWindow.cpp
-    aquila/source/window/NuttallWindow.cpp
-    aquila/source/window/BlackmanNuttallWindow.cpp
-    aquila/source/window/BlackmanHarrisWindow.cpp
+#   aquila/source/PlainTextFile.cpp
+#   aquila/source/WaveFile.cpp
+#   aquila/source/WaveFileHandler.cpp
+#   aquila/source/window/BarlettWindow.cpp
+#   aquila/source/window/BlackmanWindow.cpp
+#   aquila/source/window/FlattopWindow.cpp
+#   aquila/source/window/GaussianWindow.cpp
+#   aquila/source/window/HammingWindow.cpp
+#   aquila/source/window/HannWindow.cpp
     aquila/transform/Dft.cpp
     aquila/transform/AquilaFft.cpp
     aquila/transform/OouraFft.cpp
     aquila/transform/FftFactory.cpp
-    aquila/transform/Dct.cpp
-    aquila/transform/Mfcc.cpp
-    aquila/transform/Spectrogram.cpp
-    aquila/tools/TextPlot.cpp
+#    aquila/transform/Dct.cpp
+#    aquila/transform/Mfcc.cpp
+#    aquila/transform/Spectrogram.cpp
+#    aquila/tools/TextPlot.cpp
 )
 
 # SFML wrappers
