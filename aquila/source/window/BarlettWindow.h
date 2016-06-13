@@ -27,10 +27,26 @@ namespace Aquila
     /**
      * Barlett (triangular) window.
      */
-    class AQUILA_EXPORT BarlettWindow : public SignalSource
+	SignalSourceTemplateMod(DataType Abs(DataType) = &std::fabs)
+    class BarlettWindow : SignalSourceType
     {
     public:
-        BarlettWindow(std::size_t size);
+        /**
+         * Creates Barlett (triangular) window of given size.
+         *
+         * @param size window length
+         */
+        BarlettWindow(std::size_t size):
+            SignalSourceType::SignalSource()
+        {
+            this->m_data.reserve(size);
+            for (std::size_t n = 0; n < size; ++n)
+            {
+                this->m_data.push_back(
+                    1.0 - (2.0 * Abs(n - (size - 1) / 2.0)) / (static_cast<DataType>(size - 1))
+                );
+            }
+        }
     };
 }
 

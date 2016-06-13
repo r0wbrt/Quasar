@@ -77,8 +77,10 @@ set(Aquila_HEADERS
     aquila/source/generator/PinkNoiseGenerator.h
     aquila/source/generator/WhiteNoiseGenerator.h
     aquila/source/generator/ChirpGenerator.h
-#    aquila/source/window/BarlettWindow.h
-#    aquila/source/window/BlackmanWindow.h
+    aquila/source/window/BarlettWindow.h
+    aquila/source/window/BlackmanHarrisWindow.h
+    aquila/source/window/BlackmanWindow.h
+    aquila/source/window/BlackmanNuttallWindow.h
 #    aquila/source/window/FlattopWindow.h
 #    aquila/source/window/GaussianWindow.h
 #    aquila/source/window/HammingWindow.h
@@ -106,12 +108,12 @@ set(Aquila_SOURCES
 #   aquila/source/PlainTextFile.cpp
 #   aquila/source/WaveFile.cpp
 #   aquila/source/WaveFileHandler.cpp
-#   aquila/source/window/BarlettWindow.cpp
 #   aquila/source/window/BlackmanWindow.cpp
 #   aquila/source/window/FlattopWindow.cpp
 #   aquila/source/window/GaussianWindow.cpp
 #   aquila/source/window/HammingWindow.cpp
 #   aquila/source/window/HannWindow.cpp
+    aquila/source/window/BlackmanNuttallWindow.cpp
     aquila/transform/Dft.cpp
     aquila/transform/AquilaFft.cpp
     aquila/transform/OouraFft.cpp

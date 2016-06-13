@@ -27,10 +27,28 @@ namespace Aquila
     /**
      * Nuttall window.
      */
-    class AQUILA_EXPORT BlackmanHarrisWindow : public SignalSource
+	SignalSourceTemplateMod(DataType Cos(DataType) = &std::cos)
+    class BlackmanHarrisWindow : public SignalSourceType
     {
     public:
-        BlackmanHarrisWindow(std::size_t size);
+        /**
+         * Creates Blackman-Harris window of given size.
+         *
+         * @param size window length
+         */
+        BlackmanHarrisWindow(std::size_t size):
+            SignalSourceType::SignalSource()
+        {
+            this->m_data.reserve(size);
+            for (std::size_t n = 0; n < size; ++n)
+            {
+                this->m_data.push_back(
+                    0.35875 - 0.48829 * Cos(2.0 * M_PI * n / static_cast<DataType>(size - 1)) +
+                        0.14128 * Cos(4.0 * M_PI * n / static_cast<DataType>(size - 1)) -
+                        0.01168 * Cos(6.0 * M_PI * n / static_cast<DataType>(size - 1))
+                );
+            }
+        }
     };
 }
 
