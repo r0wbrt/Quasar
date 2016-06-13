@@ -27,10 +27,23 @@ namespace Aquila
     /**
      * Cosine window.
      */
-    class AQUILA_EXPORT CosineWindow : public SignalSource
+	SignalSourceTemplateMod(DataType Sin(DataType) = &std::sin)
+    class CosineWindow : public SignalSourceType
     {
     public:
-        CosineWindow(std::size_t size);
+        /**
+         * Creates Cosine window of given size.
+         *
+         * @param size window length
+         */
+        CosineWindow(std::size_t size):
+            SignalSourceType::SignalSource()
+        {
+            this->m_data.reserve(size);
+            for (std::size_t n = 0; n < size; ++n) {
+                this->m_data.push_back(Sin(n * M_PI / static_cast<DataType>(size - 1)));
+            }
+        }
     };
 }
 

@@ -16,6 +16,7 @@
  */
 
 #include "HammingWindow.h"
+#include "GaussianWindow.h"
 #include <cmath>
 
 namespace Aquila
@@ -35,5 +36,9 @@ namespace Aquila
                 0.53836 - 0.46164 * std::cos(2.0 * M_PI * n / double(size - 1))
             );
         }
+    }
+    void a()
+    {
+   	 GuassianWindow<double> a(100); fasf
     }
 }

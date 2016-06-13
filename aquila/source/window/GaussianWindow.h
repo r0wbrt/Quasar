@@ -28,10 +28,27 @@ namespace Aquila
     /**
      * Creates Gaussian window of given size, with optional sigma parameter.
      */
+	SignalSourceTemplateMod(DataType Pow(DataType) = &std::pow, DataType Exp(DataType) = &std::exp)
     class AQUILA_EXPORT GaussianWindow : public SignalSource
     {
     public:
-        GaussianWindow(std::size_t size, double sigma = 0.5);
+        /**
+         * Creates Gaussian window of given size, with optional sigma parameter.
+         *
+         * @param size window length
+         * @param sigma standard deviation
+         */
+        GaussianWindow::GaussianWindow(std::size_t size, DataType sigma = 0.5):
+            SignalSource()
+        {
+            this->m_data.reserve(size);
+            for (std::size_t n = 0; n < size; ++n)
+            {
+                this->m_data.push_back(
+                    std::exp((-0.5) * std::pow((n - (size - 1.0) / 2.0)/(sigma * (size - 1.0) / 2.0), 2.0))
+                );
+            }
+        }
     };
 }
 

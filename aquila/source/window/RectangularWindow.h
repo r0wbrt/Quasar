@@ -27,7 +27,7 @@ namespace Aquila
     /**
      * Rectangular window.
      */
-    class AQUILA_EXPORT RectangularWindow : public SignalSource
+    SignalSourceClass(RectangularWindow)
     {
     public:
         /**
@@ -36,9 +36,9 @@ namespace Aquila
          * @param size window length
          */
         RectangularWindow(std::size_t size):
-            SignalSource()
+            SignalSourceType::SignalSource()
         {
-            m_data.assign(size, 1.0);
+            this->m_data.assign(size, 1.0);
         }
     };
 }

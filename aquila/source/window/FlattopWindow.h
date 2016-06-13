@@ -27,10 +27,29 @@ namespace Aquila
     /**
      * Flat-top window.
      */
-    class AQUILA_EXPORT FlattopWindow : public SignalSource
+	SignalSourceTemplateMod(DataType Cos(DataType) = &std::cos)
+    class FlattopWindow : public SignalSourceType
     {
     public:
-        FlattopWindow(std::size_t size);
+        /**
+         * Creates flat-top window of given size.
+         *
+         * @param size window length
+         */
+        FlattopWindow(std::size_t size):
+            SignalSourceType::SignalSource()
+        {
+            this->m_data.reserve(size);
+            for (std::size_t n = 0; n < size; ++n)
+            {
+                this->m_data.push_back(
+                    1.0 - 1.93 * Cos(2.0 * M_PI * n / static_cast<DataType>(size - 1)) +
+                        1.29 * Cos(4.0 * M_PI * n / static_cast<DataType>(size - 1)) -
+                        0.388 * Cos(6.0 * M_PI * n / static_cast<DataType>(size - 1)) +
+                        0.0322 * Cos(8.0 * M_PI * n / static_cast<DataType>(size - 1))
+                );
+            }
+        }
     };
 }
 

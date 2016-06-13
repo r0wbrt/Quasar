@@ -49,7 +49,7 @@ namespace Aquila {
 //Various template defines to reduce clutter.
 #define SignalSourceClass(name) template<typename DataType = SampleType, template<typename ...> class Container_t = std::vector> class name : public SignalSource<DataType, Container_t>
 #define SignalSourceTemplate template<typename DataType = SampleType, template<typename ...> class Container_t = std::vector>
-#define SignalSourceTemplateMod(insert) template <typename DataType = SampleType, insert, template<typename ...> class Container_t = std::vector>
+#define SignalSourceTemplateMod(...) template <typename DataType = SampleType, __VA_ARGS__, template<typename ...> class Container_t = std::vector>
 #define SignalSourceTemplatedType(name) name<DataType, Container_t>
 #define SignalSourceType SignalSource<DataType, Container_t>
 

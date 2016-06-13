@@ -27,10 +27,27 @@ namespace Aquila
     /**
      * Blackman window.
      */
-    class AQUILA_EXPORT BlackmanWindow : public SignalSource
+	SignalSourceTemplateMod(DataType Cos(DataType) = &std::cos)
+    class BlackmanWindow : public SignalSourceType
     {
     public:
-        BlackmanWindow(std::size_t size);
+        /**
+         * Creates Blackman window of given size.
+         *
+         * @param size window length
+         */
+        BlackmanWindow(std::size_t size):
+            SignalSourceType::SignalSource()
+        {
+            this->m_data.reserve(size);
+            for (std::size_t n = 0; n < size; ++n)
+            {
+                this->m_data.push_back(
+                    0.42 - 0.5 * Cos(2.0 * M_PI * n / static_cast<DataType>(size - 1)) +
+                        0.08 * Cos(4.0 * M_PI * n / static_cast<DataType>(size - 1))
+                );
+            }
+        }
     };
 }
 

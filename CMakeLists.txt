@@ -81,18 +81,18 @@ set(Aquila_HEADERS
     aquila/source/window/BlackmanHarrisWindow.h
     aquila/source/window/BlackmanWindow.h
     aquila/source/window/BlackmanNuttallWindow.h
-#    aquila/source/window/FlattopWindow.h
-#    aquila/source/window/GaussianWindow.h
-#    aquila/source/window/HammingWindow.h
-#    aquila/source/window/HannWindow.h
-#    aquila/source/window/RectangularWindow.h
-#    aquila/transform/Fft.h
-#    aquila/transform/Dft.h
-#    aquila/transform/AquilaFft.h
-#    aquila/transform/OouraFft.h
-#    aquila/transform/FftFactory.h
-#    aquila/transform/Dct.h
-#    aquila/transform/Mfcc.h
+    aquila/source/window/FlattopWindow.h
+    aquila/source/window/GaussianWindow.h
+    aquila/source/window/HammingWindow.h
+    aquila/source/window/HannWindow.h
+    aquila/source/window/RectangularWindow.h
+    aquila/transform/Fft.h
+    aquila/transform/Dft.h
+    aquila/transform/AquilaFft.h
+    aquila/transform/OouraFft.h
+    aquila/transform/FftFactory.h
+    aquila/transform/Dct.h
+    aquila/transform/Mfcc.h
 #    aquila/transform/Spectrogram.h
 #    aquila/tools/TextPlot.h
 )
@@ -108,20 +108,19 @@ set(Aquila_SOURCES
 #   aquila/source/PlainTextFile.cpp
 #   aquila/source/WaveFile.cpp
 #   aquila/source/WaveFileHandler.cpp
-#   aquila/source/window/BlackmanWindow.cpp
-#   aquila/source/window/FlattopWindow.cpp
-#   aquila/source/window/GaussianWindow.cpp
-#   aquila/source/window/HammingWindow.cpp
-#   aquila/source/window/HannWindow.cpp
-    aquila/source/window/BlackmanNuttallWindow.cpp
+   aquila/source/window/FlattopWindow.cpp
+   aquila/source/window/GaussianWindow.cpp
+   aquila/source/window/HammingWindow.cpp
+   aquila/source/window/HannWindow.cpp
+	aquila/source/window/GuassianWindow.cpp
     aquila/transform/Dft.cpp
     aquila/transform/AquilaFft.cpp
     aquila/transform/OouraFft.cpp
     aquila/transform/FftFactory.cpp
-#    aquila/transform/Dct.cpp
-#    aquila/transform/Mfcc.cpp
-#    aquila/transform/Spectrogram.cpp
-#    aquila/tools/TextPlot.cpp
+    aquila/transform/Dct.cpp
+    aquila/transform/Mfcc.cpp
+    aquila/transform/Spectrogram.cpp
+    aquila/tools/TextPlot.cpp
 )
 
 # SFML wrappers
