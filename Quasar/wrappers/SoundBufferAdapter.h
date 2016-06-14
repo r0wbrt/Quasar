@@ -19,24 +19,86 @@
 #define SOUNDBUFFERADAPTER_H
 
 #include "../global.h"
+#include "../source/SignalSource.h"
 #include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
+#include <algorithm>
+
 
 namespace Quasar
 {
-    class SignalSource;
+
 
     /**
      * A wrapper around SignalSource to use as a sound buffer in SFML.
      */
-    class AQUILA_EXPORT SoundBufferAdapter : public sf::SoundBuffer
+    SignalSourceTemplate
+    class SoundBufferAdapter : public sf::SoundBuffer
     {
     public:
-        SoundBufferAdapter();
-        SoundBufferAdapter(const SoundBufferAdapter& other);
-        SoundBufferAdapter(const SignalSource& source);
-        ~SoundBufferAdapter();
+        /**
+         * Creates the buffer with no initial data.
+         */
+        SoundBufferAdapter():
+        sf::SoundBuffer::SoundBuffer()
+        {
+        }
 
-        bool loadFromSignalSource(const SignalSource& source);
+        /**
+         * Copy constructor.
+         *
+         * @param other buffer instance to copy from
+         */
+        SoundBufferAdapter(const SoundBufferAdapter &other):
+		sf::SoundBuffer::SoundBuffer(other)
+        {
+        }
+
+        /**
+         * Creates the buffer with initial data provided by signal source.
+         *
+         * @param source signal source
+         */
+        SoundBufferAdapter(const SignalSourceType &source):
+				sf::SoundBuffer::SoundBuffer()
+        {
+            loadFromSignalSource(source);
+        }
+
+        /**
+         * Destructor - does nothing by itself.
+         *
+         * Relies on virtual call to the destructor of the parent class.
+         */
+        ~SoundBufferAdapter()
+        {
+        }
+
+        /**
+         * Loads sound data from an instance of SignalSource-subclass.
+         *
+         * Data read from source are converted to SFML-compatible sample array
+         * and loaded into the buffer.
+         *
+         * Name capitalized for consistency with SFML coding style.
+         *
+         * @todo get rid of copying data around, let's come up with some better way
+         *
+         * @param source signal source
+         * @return true if successfully loaded
+         */
+        bool loadFromSignalSource(const SignalSourceType &source)
+        {
+            sf::Int16* samples = new sf::Int16[source.getSamplesCount()];
+            std::copy(source.begin(), source.end(), samples);
+            bool result = this->loadFromSamples(samples,
+                                         source.getSamplesCount(),
+                                         1,
+                                         static_cast<unsigned int>(source.getSampleFrequency()));
+            delete [] samples;
+
+            return result;
+        }
     };
 }
 

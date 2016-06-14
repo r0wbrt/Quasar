@@ -84,7 +84,7 @@ namespace Quasar
      * @param to upper limit
      * @return random number
      */
-    AQUILA_EXPORT inline int random(int from, int to)
+    inline int random(int from, int to)
     {
         return std::rand() % (to - from) + from;
     }
@@ -92,7 +92,7 @@ namespace Quasar
     /**
      * Returns a pseudorandom double number from 0 to 1.
      */
-    AQUILA_EXPORT inline double randomDouble()
+    inline double randomDouble()
     {
         return std::rand() / static_cast<double>(RAND_MAX);
     }
@@ -101,7 +101,7 @@ namespace Quasar
      * Checks if n is an exact power of 2.
      */
     template<typename Integer>
-    AQUILA_EXPORT inline bool isPowerOf2(Integer n)
+    inline bool isPowerOf2(Integer n)
     {
         return (n > 0) && ((n & (n - 1)) == 0);
     }
@@ -110,7 +110,7 @@ namespace Quasar
      * Returns the smallest power of 2 greater than n.
      */
     template<typename Integer>
-    AQUILA_EXPORT inline Integer nextPowerOf2(Integer n)
+    inline Integer nextPowerOf2(Integer n)
     {
         if (isPowerOf2(n))
         {

@@ -36,8 +36,8 @@ namespace Quasar
      * rate must be known prior to opening the file as the constructor expects
      * sample frequency as its second argument.
      */
-    template <typename Numeric = SampleType>
-    class AQUILA_EXPORT RawPcmFile : public SignalSource
+
+    SignalSourceClass(RawPcmFile)
     {
     public:
         /**
@@ -47,7 +47,7 @@ namespace Quasar
          * @param sampleFrequency sample frequency of the data in file
          */
         RawPcmFile(std::string filename, FrequencyType sampleFrequency):
-            SignalSource(sampleFrequency)
+            SignalSourceType::SignalSource(sampleFrequency)
         {
             std::fstream fs;
             fs.open(filename.c_str(), std::ios::in | std::ios::binary);
@@ -58,10 +58,10 @@ namespace Quasar
             fs.seekg(0, std::ios::beg);
             std::size_t samplesCount = fileSize / sizeof(Numeric);
             // read raw data into a temporary buffer
-            Numeric* buffer = new Numeric[samplesCount];
+            DataType* buffer = new DataType[samplesCount];
             fs.read((char*)buffer, fileSize);
             // copy and implicit conversion to SampleType
-            m_data.assign(buffer, buffer + samplesCount);
+            this->m_data.assign(buffer, buffer + samplesCount);
             delete [] buffer;
             fs.close();
         }
@@ -72,15 +72,15 @@ namespace Quasar
          * @param source source of the data to save
          * @param filename destination file
          */
-        static void save(const SignalSource& source, const std::string& filename)
+        static void save(const SignalSourceType& source, const std::string& filename)
         {
             std::fstream fs;
             fs.open(filename.c_str(), std::ios::out | std::ios::binary);
             std::size_t samplesCount = source.getSamplesCount();
-            Numeric* buffer = new Numeric[samplesCount];
+            DataType* buffer = new DataType[samplesCount];
             // copy and convert from SampleType to target type
             std::copy(std::begin(source), std::end(source), buffer);
-            fs.write((char*)buffer, samplesCount * sizeof(Numeric));
+            fs.write((char*)buffer, samplesCount * sizeof(DataType));
             delete [] buffer;
             fs.close();
         }

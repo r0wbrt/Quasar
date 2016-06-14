@@ -34,12 +34,44 @@ namespace Quasar
      * rate must be known prior to opening the file as the constructor expects
      * sample frequency as its second argument.
      */
-    class AQUILA_EXPORT PlainTextFile : public SignalSource
+    SignalSourceClass(PlainTextFile)
     {
     public:
-        PlainTextFile(std::string filename, FrequencyType sampleFrequency);
+        /**
+         * Creates the data source.
+         *
+         * @param filename full path to .txt file
+         * @param sampleFrequency sample frequency of the data in file
+         */
+        PlainTextFile(std::string filename,
+                                     FrequencyType sampleFrequency):
+            SignalSourceType::SignalSource(sampleFrequency)
+        {
+            std::fstream fs;
+            fs.open(filename.c_str(), std::ios::in);
+            std::copy(std::istream_iterator<DataType>(fs),
+                      std::istream_iterator<DataType>(),
+                      std::back_inserter(this->m_data));
+            fs.close();
+        }
 
-        static void save(const SignalSource& source, const std::string& file);
+        /**
+         * Saves the given signal source as a plain text file.
+         *
+         * @param source source of the data to save
+         * @param filename destination file
+         */
+        void PlainTextFile::save(const SignalSourceType& source,
+                                 const std::string& filename)
+        {
+            std::fstream fs;
+            fs.open(filename.c_str(), std::ios::out);
+            std::copy(std::begin(source),
+                      std::end(source),
+                      std::ostream_iterator<DataType>(fs, "\n"));
+            fs.close();
+        }
+    }
     };
 }
 

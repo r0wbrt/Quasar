@@ -55,7 +55,6 @@ set(Quasar_HEADERS
     Quasar/functions.h
 #    Quasar/Exceptions.h
 #    Quasar/source.h
-#    Quasar/tools.h
 #    Quasar/transform.h
 #    Quasar/filter.h
 #    Quasar/ml.h
@@ -66,8 +65,8 @@ set(Quasar_HEADERS
     Quasar/source/SignalSource.h
     Quasar/source/Frame.h
     Quasar/source/FramesCollection.h
-#    Quasar/source/PlainTextFile.h
-#    Quasar/source/RawPcmFile.h
+    Quasar/source/PlainTextFile.h
+    Quasar/source/RawPcmFile.h
 #    Quasar/source/WaveFile.h
 #    Quasar/source/WaveFileHandler.h
     Quasar/source/generator/Generator.h
@@ -94,7 +93,6 @@ set(Quasar_HEADERS
     Quasar/transform/Dct.h
     Quasar/transform/Mfcc.h
 #    Quasar/transform/Spectrogram.h
-#    Quasar/tools/TextPlot.h
 )
 
 # library sources
@@ -102,7 +100,6 @@ set(Quasar_SOURCES
 #    Quasar/filter/MelFilter.cpp
 #    Quasar/filter/MelFilterBank.cpp
 #    Quasar/ml/Dtw.cpp
-#   Quasar/source/PlainTextFile.cpp
 #   Quasar/source/WaveFile.cpp
 #   Quasar/source/WaveFileHandler.cpp
 #    Quasar/transform/Dft.cpp
@@ -119,15 +116,9 @@ if(SFML_FOUND)
     list(APPEND Quasar_HEADERS
         Quasar/synth.h
         Quasar/wrappers/SoundBufferAdapter.h
-        Quasar/synth/Synthesizer.h
-        Quasar/synth/KarplusStrongSynthesizer.h
-        Quasar/synth/SineSynthesizer.h
     )
     list(APPEND Quasar_SOURCES
         Quasar/wrappers/SoundBufferAdapter.cpp
-        Quasar/synth/Synthesizer.cpp
-        Quasar/synth/KarplusStrongSynthesizer.cpp
-        Quasar/synth/SineSynthesizer.cpp
     )
 endif()
 
