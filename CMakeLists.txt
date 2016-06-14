@@ -69,6 +69,7 @@ set(Quasar_HEADERS
     Quasar/source/RawPcmFile.h
 #    Quasar/source/WaveFile.h
 #    Quasar/source/WaveFileHandler.h
+	Quasar/filter/RaisedCosineFilter.h
     Quasar/source/generator/Generator.h
     Quasar/source/generator/SineGenerator.h
     Quasar/source/generator/SquareGenerator.h
