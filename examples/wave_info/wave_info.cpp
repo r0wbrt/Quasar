@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
         std::cout << "Usage: wave_info <FILENAME>" << std::endl;
         return 1;
     }
-    Aquila::WaveFile wav(argv[1]);
+    Quasar::WaveFile wav(argv[1]);
     std::cout << "Filename: "           << wav.getFilename();
     std::cout << "\nLength: "           << wav.getAudioLength()     << " ms";
     std::cout << "\nSample frequency: " << wav.getSampleFrequency() << " Hz";

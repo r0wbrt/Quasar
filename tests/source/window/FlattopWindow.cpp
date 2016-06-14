@@ -9,7 +9,7 @@ SUITE(FlattopWindow)
     TEST(NonZeroAtEnds)
     {
         const std::size_t SIZE = 4;
-        Aquila::FlattopWindow w(SIZE);
+        Quasar::FlattopWindow w(SIZE);
         CHECK(w.sample(0) > 0.000001);
         CHECK(w.sample(SIZE - 1) > 0.000001);
     }

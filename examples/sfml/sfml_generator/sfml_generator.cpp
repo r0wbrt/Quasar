@@ -8,9 +8,9 @@
 #include <iostream>
 
 
-void handleGeneratorOptions(Aquila::Generator* generator)
+void handleGeneratorOptions(Quasar::Generator* generator)
 {
-    Aquila::FrequencyType frequency, maxFrequency = generator->getSampleFrequency() / 2;
+    Quasar::FrequencyType frequency, maxFrequency = generator->getSampleFrequency() / 2;
     std::cout << "\nSignal frequency in Hz: \n"
                  "Enter a number (0-" << maxFrequency << "): ";
     std::cin >> frequency;
@@ -22,28 +22,28 @@ void handleGeneratorOptions(Aquila::Generator* generator)
 }
 
 
-Aquila::Generator* createGenerator(unsigned int whichGenerator,
-                                   Aquila::FrequencyType sampleFrequency)
+Quasar::Generator* createGenerator(unsigned int whichGenerator,
+                                   Quasar::FrequencyType sampleFrequency)
 {
-    Aquila::Generator* generator;
+    Quasar::Generator* generator;
     switch (whichGenerator)
     {
     case 1:
-        generator = new Aquila::SineGenerator(sampleFrequency);
+        generator = new Quasar::SineGenerator(sampleFrequency);
         handleGeneratorOptions(generator);
         break;
     case 2:
-        generator = new Aquila::SquareGenerator(sampleFrequency);
+        generator = new Quasar::SquareGenerator(sampleFrequency);
         handleGeneratorOptions(generator);
         break;
     case 3:
-        generator = new Aquila::PinkNoiseGenerator(sampleFrequency);
+        generator = new Quasar::PinkNoiseGenerator(sampleFrequency);
         break;
     case 4:
-        generator = new Aquila::WhiteNoiseGenerator(sampleFrequency);
+        generator = new Quasar::WhiteNoiseGenerator(sampleFrequency);
         break;
     default:
-        generator = new Aquila::SineGenerator(sampleFrequency);
+        generator = new Quasar::SineGenerator(sampleFrequency);
         handleGeneratorOptions(generator);
         break;
     }
@@ -62,11 +62,11 @@ int main(int argc, char** argv)
                  "Enter a number (1-4): ";
     unsigned int whichGenerator = 1;
     std::cin >> whichGenerator;
-    const Aquila::FrequencyType SAMPLE_FREQUENCY = 44100;
-    Aquila::Generator* generator = createGenerator(whichGenerator, SAMPLE_FREQUENCY);
+    const Quasar::FrequencyType SAMPLE_FREQUENCY = 44100;
+    Quasar::Generator* generator = createGenerator(whichGenerator, SAMPLE_FREQUENCY);
     generator->generate(5 * SAMPLE_FREQUENCY);
 
-    Aquila::SoundBufferAdapter buffer(*generator);
+    Quasar::SoundBufferAdapter buffer(*generator);
     sf::Sound sound(buffer);
     sound.play();
     std::cout << "Playing..." << std::endl;

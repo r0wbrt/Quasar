@@ -50,27 +50,27 @@ SUITE(TextPlot)
 
     TEST(DefaultTitle)
     {
-        Aquila::TextPlot plot;
+        Quasar::TextPlot plot;
         CHECK_EQUAL(plot.getTitle(), "Data plot");
     }
 
     TEST(CustomTitle)
     {
-        Aquila::TextPlot plot;
+        Quasar::TextPlot plot;
         plot.setTitle("My plot");
         CHECK_EQUAL(plot.getTitle(), "My plot");
     }
 
     TEST(DefaultSize)
     {
-        Aquila::TextPlot plot;
+        Quasar::TextPlot plot;
         CHECK_EQUAL(plot.getWidth(), 64u);
         CHECK_EQUAL(plot.getHeight(), 16u);
     }
 
     TEST(CustomSize)
     {
-        Aquila::TextPlot plot;
+        Quasar::TextPlot plot;
         plot.setSize(80, 12);
         CHECK_EQUAL(plot.getWidth(), 80u);
         CHECK_EQUAL(plot.getHeight(), 12u);
@@ -78,44 +78,44 @@ SUITE(TextPlot)
 
     TEST(PlotSineWave)
     {
-        Aquila::SineGenerator generator(128);
+        Quasar::SineGenerator generator(128);
         generator.setAmplitude(1).setFrequency(8).generate(64);
         std::stringstream out;
-        Aquila::TextPlot plot("Data plot", out);
+        Quasar::TextPlot plot("Data plot", out);
         plot.plot(generator);
         CHECK_EQUAL(expectedSinePlot, out.str());
     }
 
     TEST(PlotSineWaveFromArray)
     {
-        Aquila::SineGenerator generator(128);
+        Quasar::SineGenerator generator(128);
         generator.setAmplitude(1).setFrequency(8).generate(64);
         std::stringstream out;
-        Aquila::TextPlot plot("Data plot", out);
+        Quasar::TextPlot plot("Data plot", out);
         plot.plot(generator.toArray(), generator.length());
         CHECK_EQUAL(expectedSinePlot, out.str());
     }
 
     TEST(PlotSineWaveFromVector)
     {
-        Aquila::SineGenerator generator(128);
+        Quasar::SineGenerator generator(128);
         generator.setAmplitude(1).setFrequency(8).generate(64);
         auto arr = generator.toArray();
         std::vector<double> vec(arr, arr + generator.length());
         std::stringstream out;
-        Aquila::TextPlot plot("Data plot", out);
+        Quasar::TextPlot plot("Data plot", out);
         plot.plot(vec);
         CHECK_EQUAL(expectedSinePlot, out.str());
     }
 
     TEST(PlotSpectrum)
     {
-        Aquila::SineGenerator generator(128);
+        Quasar::SineGenerator generator(128);
         generator.setAmplitude(1).setFrequency(8).generate(64);
-        auto fft = Aquila::FftFactory::getFft(generator.length());
-        Aquila::SpectrumType spectrum = fft->fft(generator.toArray());
+        auto fft = Quasar::FftFactory::getFft(generator.length());
+        Quasar::SpectrumType spectrum = fft->fft(generator.toArray());
         std::stringstream out;
-        Aquila::TextPlot plot("Spectrum", out);
+        Quasar::TextPlot plot("Spectrum", out);
         plot.plotSpectrum(spectrum);
         CHECK_EQUAL(expectedSpectrum, out.str());
     }

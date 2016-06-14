@@ -9,20 +9,20 @@
 SUITE(SignalSource)
 {
     const std::size_t SIZE = 10;
-    Aquila::SampleType testArray[SIZE] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    Aquila::SignalSource data(testArray, SIZE, 22050);
+    Quasar::SampleType testArray[SIZE] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    Quasar::SignalSource data(testArray, SIZE, 22050);
 
     TEST(InitializeFromVector)
     {
-        std::vector<Aquila::SampleType> vec(testArray, testArray + SIZE);
-        Aquila::SignalSource source(vec, 22050);
+        std::vector<Quasar::SampleType> vec(testArray, testArray + SIZE);
+        Quasar::SignalSource source(vec, 22050);
         CHECK_EQUAL(SIZE, source.length());
     }
 
     TEST(InitializeFromTempVector)
     {
-        Aquila::SignalSource source(
-            std::vector<Aquila::SampleType>(testArray, testArray + SIZE),
+        Quasar::SignalSource source(
+            std::vector<Quasar::SampleType>(testArray, testArray + SIZE),
             22050
         );
         CHECK_EQUAL(SIZE, source.length());
@@ -35,7 +35,7 @@ SUITE(SignalSource)
 
     TEST(DefaultSampleFrequency)
     {
-        Aquila::SignalSource data2(testArray, SIZE);
+        Quasar::SignalSource data2(testArray, SIZE);
         CHECK_EQUAL(0, data2.getSampleFrequency());
         data2.setSampleFrequency(22050);
         CHECK_EQUAL(22050, data2.getSampleFrequency());
@@ -88,14 +88,14 @@ SUITE(SignalSource)
 
     TEST(IteratorsToDifferentSources)
     {
-        Aquila::SignalSource data2(testArray, SIZE, 22050);
+        Quasar::SignalSource data2(testArray, SIZE, 22050);
         auto it1 = data.begin(), it2 = data2.begin();
         CHECK(it1 != it2);
     }
 
     TEST(SumWithConstant)
     {
-        const Aquila::SampleType offset = 99.0;
+        const Quasar::SampleType offset = 99.0;
         auto result = data + offset;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -106,7 +106,7 @@ SUITE(SignalSource)
 
     TEST(SumWithConstantRhs)
     {
-        const Aquila::SampleType offset = 99.0;
+        const Quasar::SampleType offset = 99.0;
         auto result = offset + data;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -117,7 +117,7 @@ SUITE(SignalSource)
 
     TEST(MultiplyByConstant)
     {
-        const Aquila::SampleType scale = 10.0;
+        const Quasar::SampleType scale = 10.0;
         auto result = data * scale;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -128,7 +128,7 @@ SUITE(SignalSource)
 
     TEST(MultiplyByConstantRhs)
     {
-        const Aquila::SampleType scale = 10.0;
+        const Quasar::SampleType scale = 10.0;
         auto result = scale * data;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -139,7 +139,7 @@ SUITE(SignalSource)
 
     TEST(SimpleSum)
     {
-        Aquila::SignalSource data2(testArray, SIZE, 22050);
+        Quasar::SignalSource data2(testArray, SIZE, 22050);
         auto result = data + data2;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -150,7 +150,7 @@ SUITE(SignalSource)
 
     TEST(SimpleMultiplication)
     {
-        Aquila::SignalSource data2(testArray, SIZE, 22050);
+        Quasar::SignalSource data2(testArray, SIZE, 22050);
         auto result = data * data2;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -161,7 +161,7 @@ SUITE(SignalSource)
 
     TEST(ComplexExpression)
     {
-        Aquila::SignalSource data2(testArray, SIZE, 22050);
+        Quasar::SignalSource data2(testArray, SIZE, 22050);
         auto result = data2 + data2 * (3.0 + 2.0 * (1.0 + data + 5.0)) * 2.0 * data2;
         std::size_t i = 0;
         for (auto it = result.begin(); it != result.end(); it++, i++)
@@ -178,26 +178,26 @@ SUITE(SignalSource)
 
     TEST(Mean)
     {
-        CHECK_CLOSE(4.5, Aquila::mean(data), 0.000001);
+        CHECK_CLOSE(4.5, Quasar::mean(data), 0.000001);
     }
 
     TEST(Energy)
     {
-        CHECK_CLOSE(285.0, Aquila::energy(data), 0.000001);
+        CHECK_CLOSE(285.0, Quasar::energy(data), 0.000001);
     }
 
     TEST(Power)
     {
-        CHECK_CLOSE(28.5, Aquila::power(data), 0.000001);
+        CHECK_CLOSE(28.5, Quasar::power(data), 0.000001);
     }
 
     TEST(Norm)
     {
-        CHECK_CLOSE(16.881943, Aquila::norm(data), 0.000001);
+        CHECK_CLOSE(16.881943, Quasar::norm(data), 0.000001);
     }
 
     TEST(Rms)
     {
-        CHECK_CLOSE(5.338539, Aquila::rms(data), 0.000001);
+        CHECK_CLOSE(5.338539, Quasar::rms(data), 0.000001);
     }
 }

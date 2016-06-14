@@ -13,7 +13,7 @@ SUITE(Dct)
         const double testArray[SIZE] = {1.0, -1.0, 1.0, -1.0};
         std::vector<double> vec(testArray, testArray + SIZE);
 
-        Aquila::Dct dct;
+        Quasar::Dct dct;
         auto output = dct.dct(vec, SIZE);
 
         double expected[SIZE] = {0.0, 0.76536686, 0.0, 1.84775907};
@@ -26,7 +26,7 @@ SUITE(Dct)
         const double testArray[SIZE] = {1.0, 1.0, 1.0, 1.0};
         std::vector<double> vec(testArray, testArray + SIZE);
 
-        Aquila::Dct dct;
+        Quasar::Dct dct;
         auto output = dct.dct(vec, SIZE);
 
         double expected[SIZE] = {2.0, 0.0, 0.0, 0.0};
@@ -39,7 +39,7 @@ SUITE(Dct)
         const double testArray[SIZE] = {1.0, 1.0, 1.0, 1.0};
         std::vector<double> vec(testArray, testArray + SIZE);
 
-        Aquila::Dct dct;
+        Quasar::Dct dct;
         auto output = dct.dct(vec, SIZE);
         auto output2 = dct.dct(vec, SIZE);
 

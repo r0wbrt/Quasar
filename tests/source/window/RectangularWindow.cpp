@@ -9,17 +9,17 @@ SUITE(RectangularWindow)
     TEST(SampleValue)
     {
         const std::size_t SIZE = 4;
-        Aquila::RectangularWindow w(SIZE);
-        Aquila::SampleType expected[SIZE] = {1.0, 1.0, 1.0, 1.0};
+        Quasar::RectangularWindow w(SIZE);
+        Quasar::SampleType expected[SIZE] = {1.0, 1.0, 1.0, 1.0};
         CHECK_ARRAY_CLOSE(expected, w.toArray(), SIZE, 0.000001);
     }
 
     TEST(Multiplication)
     {
         const std::size_t SIZE = 1024;
-        Aquila::SquareGenerator generator(44100);
+        Quasar::SquareGenerator generator(44100);
         generator.setFrequency(1000).setAmplitude(500).generate(SIZE);
-        Aquila::RectangularWindow w(SIZE);
+        Quasar::RectangularWindow w(SIZE);
         auto result = generator * w;
         CHECK_ARRAY_CLOSE(generator.toArray(), result.toArray(), SIZE, 0.00001);
     }

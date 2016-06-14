@@ -28,6 +28,6 @@ void MainWindow::loadWaveFile()
     if (filename.isEmpty())
         return;
 
-    Aquila::WaveFile* wav = new Aquila::WaveFile(filename.toStdString());
+    Quasar::WaveFile* wav = new Quasar::WaveFile(filename.toStdString());
     waveWidget->setWaveFile(wav);
 }

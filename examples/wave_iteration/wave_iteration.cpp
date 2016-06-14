@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    Aquila::WaveFile wav(argv[1]);
+    Quasar::WaveFile wav(argv[1]);
     std::cout << "Loaded file: " << wav.getFilename()
               << " (" << wav.getBitsPerSample() << "b)" << std::endl;
-    Aquila::SampleType maxValue = 0, minValue = 0, average = 0;
+    Quasar::SampleType maxValue = 0, minValue = 0, average = 0;
 
     // simple index-based iteration
     for (std::size_t i = 0; i < wav.getSamplesCount(); ++i)
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     int aboveLimit = std::count_if(
         wav.begin(),
         wav.end(),
-        [limit] (Aquila::SampleType sample) {
+        [limit] (Quasar::SampleType sample) {
             return sample > limit;
         }
     );

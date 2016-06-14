@@ -9,7 +9,7 @@
 #include <ctime>
 #include <vector>
 
-void drawDtwPath(const Aquila::Dtw& dtw, std::size_t xSize, std::size_t ySize)
+void drawDtwPath(const Quasar::Dtw& dtw, std::size_t xSize, std::size_t ySize)
 {
     std::vector<std::vector<char>> data(ySize);
     for (auto it = data.rbegin(); it != data.rend(); ++it)
@@ -39,30 +39,30 @@ int main(int argc, char *argv[])
     std::srand(std::time(0));
 
     const std::size_t X_SIZE = 24, Y_SIZE = 24;
-    Aquila::DtwDataType from, to;
+    Quasar::DtwDataType from, to;
 
     std::generate_n(std::back_inserter(from), Y_SIZE, [] () {
         std::vector<double> features;
-        features.push_back(Aquila::randomDouble());
-        features.push_back(Aquila::randomDouble());
-        features.push_back(Aquila::randomDouble());
+        features.push_back(Quasar::randomDouble());
+        features.push_back(Quasar::randomDouble());
+        features.push_back(Quasar::randomDouble());
         return features;
     });
 
     std::generate_n(std::back_inserter(to), X_SIZE, [] () {
         std::vector<double> features;
-        features.push_back(Aquila::randomDouble());
-        features.push_back(Aquila::randomDouble());
-        features.push_back(Aquila::randomDouble());
+        features.push_back(Quasar::randomDouble());
+        features.push_back(Quasar::randomDouble());
+        features.push_back(Quasar::randomDouble());
         return features;
     });
 
-    Aquila::Dtw dtw;
+    Quasar::Dtw dtw;
     double distance = dtw.getDistance(from, to);
     std::cout << "DTW distance (neighbors): " << distance << "\n";
     drawDtwPath(dtw, X_SIZE, Y_SIZE);
 
-    Aquila::Dtw dtwDiag(Aquila::euclideanDistance, Aquila::Dtw::Diagonals);
+    Quasar::Dtw dtwDiag(Quasar::euclideanDistance, Quasar::Dtw::Diagonals);
     distance = dtwDiag.getDistance(from, to);
     std::cout << "DTW distance (diagonals): " << distance << "\n";
     drawDtwPath(dtwDiag, X_SIZE, Y_SIZE);

@@ -21,8 +21,8 @@ int main(int argc, char** argv)
                  " \t http://processors.wiki.ti.com/index.php/Playing_The_Imperial_March \n\n"
                  " (c) Zbigniew Siciarz 2010 \n" << std::endl;
 
-    const Aquila::FrequencyType SAMPLE_FREQUENCY = 44100;
-    Aquila::SineSynthesizer synth(SAMPLE_FREQUENCY);
+    const Quasar::FrequencyType SAMPLE_FREQUENCY = 44100;
+    Quasar::SineSynthesizer synth(SAMPLE_FREQUENCY);
 
     synth.playNote("A4", 500);
     synth.playNote("A4", 500);

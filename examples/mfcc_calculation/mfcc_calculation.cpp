@@ -9,12 +9,12 @@
 int main(int argc, char *argv[])
 {
     const std::size_t SIZE = 1024;
-    const Aquila::FrequencyType sampleFrequency = 1024;
+    const Quasar::FrequencyType sampleFrequency = 1024;
 
-    Aquila::SineGenerator input(sampleFrequency);
+    Quasar::SineGenerator input(sampleFrequency);
     input.setAmplitude(5).setFrequency(64).generate(SIZE);
 
-    Aquila::Mfcc mfcc(input.getSamplesCount());
+    Quasar::Mfcc mfcc(input.getSamplesCount());
     auto mfccValues = mfcc.calculate(input);
     std::cout << "MFCC coefficients: \n";
     std::copy(

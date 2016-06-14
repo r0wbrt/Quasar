@@ -7,21 +7,21 @@
 #include <iterator>
 
 unsigned int findPeak(std::size_t arraySize,
-                      Aquila::FrequencyType sampleFrequency,
-                      Aquila::FrequencyType signalFrequency)
+                      Quasar::FrequencyType sampleFrequency,
+                      Quasar::FrequencyType signalFrequency)
 {
-    Aquila::SineGenerator generator(sampleFrequency);
+    Quasar::SineGenerator generator(sampleFrequency);
     generator.setAmplitude(64).setFrequency(signalFrequency).generate(arraySize);
 
-    auto fft = Aquila::FftFactory::getFft(arraySize);
-    Aquila::SpectrumType spectrum = fft->fft(generator.toArray());
+    auto fft = Quasar::FftFactory::getFft(arraySize);
+    Quasar::SpectrumType spectrum = fft->fft(generator.toArray());
 
     // "iterator" pointing to highest spectrum peak (comparing by magnitude)
     // the pointer difference is the number of spectral peak
     auto peakPos = std::max_element(
         std::begin(spectrum),
         std::begin(spectrum) + arraySize / 2,
-        [] (Aquila::ComplexType x, Aquila::ComplexType y) -> bool {
+        [] (Quasar::ComplexType x, Quasar::ComplexType y) -> bool {
             return std::abs(x) < std::abs(y);
         }
     );

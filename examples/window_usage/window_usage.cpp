@@ -5,14 +5,14 @@
 int main(int argc, char *argv[])
 {
     const std::size_t LENGTH = 65;
-    Aquila::TextPlot plot;
+    Quasar::TextPlot plot;
 
-    Aquila::SineGenerator generator(1000);
+    Quasar::SineGenerator generator(1000);
     generator.setFrequency(84).setAmplitude(1024).generate(LENGTH);
     plot.setTitle("Sine wave before windowing");
     plot.plot(generator);
 
-    Aquila::HammingWindow window(LENGTH);
+    Quasar::HammingWindow window(LENGTH);
     auto result = generator * window;
     plot.setTitle("Sine wave after windowing");
     plot.plot(result);

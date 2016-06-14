@@ -9,7 +9,7 @@ SUITE(BlackmanNuttallWindow)
     TEST(ZeroAtEnds)
     {
         const std::size_t SIZE = 4;
-        Aquila::BlackmanNuttallWindow w(SIZE);
+        Quasar::BlackmanNuttallWindow w(SIZE);
         // 0.0003628 has been manually calculated using:
         // 0.3635819 - 0.4891775 * cos(0) + 0.1365995 * cos(0) - 0.0106411 * cos(0)
         CHECK_CLOSE(0.0003628, w.sample(0), 0.000001);
@@ -19,9 +19,9 @@ SUITE(BlackmanNuttallWindow)
     TEST(Multiplication)
     {
         const std::size_t SIZE = 1024;
-        Aquila::SquareGenerator generator(44100);
+        Quasar::SquareGenerator generator(44100);
         generator.setFrequency(1000).setAmplitude(500).generate(SIZE);
-        Aquila::BlackmanNuttallWindow w(SIZE);
+        Quasar::BlackmanNuttallWindow w(SIZE);
         auto result = generator * w;
         // 0.1814 = 0.0003628 (see above) * 500 (amplitude)
         CHECK_CLOSE(0.1814, result.sample(0), 0.000001);

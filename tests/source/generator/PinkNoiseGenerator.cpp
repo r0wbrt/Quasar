@@ -9,12 +9,12 @@
 SUITE(PinkNoiseGenerator)
 {
     // sample frequency is fixed at 1 kHz
-    Aquila::PinkNoiseGenerator gen(1000);
+    Quasar::PinkNoiseGenerator gen(1000);
 
     TEST(DoesNotOverrunAplitude)
     {
         std::srand(std::time(0));
-        Aquila::SampleType amplitude = 1000;
+        Quasar::SampleType amplitude = 1000;
         gen.setAmplitude(amplitude).generate(0xFFFF + 1);
         auto result = std::minmax_element(std::begin(gen), std::end(gen));
         CHECK(*result.first > -amplitude);
@@ -25,7 +25,7 @@ SUITE(PinkNoiseGenerator)
     {
         std::srand(std::time(0));
         gen.setAmplitude(1).generate(0xFFFF + 1);
-        auto mean = Aquila::mean(gen);
+        auto mean = Quasar::mean(gen);
         CHECK_CLOSE(0.0, mean, 0.1);
     }
 }

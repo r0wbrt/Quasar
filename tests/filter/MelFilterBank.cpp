@@ -8,15 +8,15 @@
 template <std::size_t N>
 void testMelFilterBankOutput()
 {
-    Aquila::FrequencyType sampleFrequency = 44100.0;
-    Aquila::MelFilterBank filters(sampleFrequency, N);
+    Quasar::FrequencyType sampleFrequency = 44100.0;
+    Quasar::MelFilterBank filters(sampleFrequency, N);
 
     for (std::size_t k = 0; k < filters.size(); ++k)
     {
         // create a single spectral peak at middle frequency of k-th Mel filter
-        Aquila::SpectrumType spectrum(N);
-        Aquila::FrequencyType melFrequency = 100.0 + k * 100.0;
-        Aquila::FrequencyType linearFrequency = Aquila::MelFilter::melToLinear(melFrequency);
+        Quasar::SpectrumType spectrum(N);
+        Quasar::FrequencyType melFrequency = 100.0 + k * 100.0;
+        Quasar::FrequencyType linearFrequency = Quasar::MelFilter::melToLinear(melFrequency);
         std::size_t peakNumber = N  * (linearFrequency / sampleFrequency);
         spectrum[peakNumber] = 5000.0;
 
@@ -30,13 +30,13 @@ SUITE(MelFilterBank)
 {
     TEST(SampleFrequency)
     {
-        Aquila::MelFilterBank filters(22050, 2048);
+        Quasar::MelFilterBank filters(22050, 2048);
         CHECK_EQUAL(22050, filters.getSampleFrequency());
     }
 
     TEST(SpectrumLength)
     {
-        Aquila::MelFilterBank filters(22050, 2048);
+        Quasar::MelFilterBank filters(22050, 2048);
         CHECK_EQUAL(2048u, filters.getSpectrumLength());
     }
 

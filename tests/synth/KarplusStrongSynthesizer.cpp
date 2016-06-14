@@ -6,13 +6,13 @@ SUITE(KarplusStrongSynthesizer)
 {
     TEST(PlayNote)
     {
-        Aquila::KarplusStrongSynthesizer synthesizer(44100);
+        Quasar::KarplusStrongSynthesizer synthesizer(44100);
         synthesizer.playNote("A4", 100);
     }
 
     TEST(PlayUnknownNote)
     {
-        Aquila::KarplusStrongSynthesizer synthesizer(44100);
+        Quasar::KarplusStrongSynthesizer synthesizer(44100);
         synthesizer.playNote("XX", 100);
     }
 }

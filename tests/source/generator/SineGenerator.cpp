@@ -8,17 +8,17 @@
 SUITE(SineGenerator)
 {
     // sample frequency is fixed at 1 kHz
-    Aquila::SineGenerator gen(1000);
+    Quasar::SineGenerator gen(1000);
 
     TEST(ExactlyOnePeriod)
     {
         gen.setAmplitude(1).setFrequency(10).generate(100);
-        CHECK_CLOSE(0.0, Aquila::mean(gen), 0.000001);
+        CHECK_CLOSE(0.0, Quasar::mean(gen), 0.000001);
     }
 
     TEST(ExactlyTenPeriods)
     {
         gen.setAmplitude(1).setFrequency(100).generate(100);
-        CHECK_CLOSE(0.0, Aquila::mean(gen), 0.000001);
+        CHECK_CLOSE(0.0, Quasar::mean(gen), 0.000001);
     }
 }

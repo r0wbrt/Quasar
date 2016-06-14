@@ -5,18 +5,18 @@
 #include "UnitTest++/UnitTest++.h"
 
 void testSpectrumPeaks(std::size_t SIZE,
-                       Aquila::FrequencyType sampleFrequency,
-                       Aquila::FrequencyType testFrequency)
+                       Quasar::FrequencyType sampleFrequency,
+                       Quasar::FrequencyType testFrequency)
 {
-    Aquila::SineGenerator generator(sampleFrequency);
+    Quasar::SineGenerator generator(sampleFrequency);
     generator.setFrequency(testFrequency).setAmplitude(1).generate(SIZE);
 
     // divide into 4 frames
     const std::size_t samplesPerFrame = SIZE / 4;
-    Aquila::FramesCollection frames(generator, samplesPerFrame);
+    Quasar::FramesCollection frames(generator, samplesPerFrame);
     CHECK_EQUAL(4u, frames.count());
 
-    Aquila::Spectrogram spectrogram(frames);
+    Quasar::Spectrogram spectrogram(frames);
 
     // check all frames for a single spectral peak coming from the sine
     std::size_t halfLength = samplesPerFrame / 2;
@@ -38,18 +38,18 @@ void testSpectrumPeaks(std::size_t SIZE,
 SUITE(Spectrogram)
 {
     const std::size_t SIZE = 512;
-    Aquila::FrequencyType sampleFrequency = 1024;
+    Quasar::FrequencyType sampleFrequency = 1024;
 
     TEST(Dimensions)
     {
-        Aquila::SineGenerator generator(sampleFrequency);
+        Quasar::SineGenerator generator(sampleFrequency);
         generator.setFrequency(32).setAmplitude(1).generate(SIZE);
 
         // divide into 4 frames, 128 samples each
-        Aquila::FramesCollection frames(generator, SIZE / 4);
+        Quasar::FramesCollection frames(generator, SIZE / 4);
         CHECK_EQUAL(4u, frames.count());
 
-        Aquila::Spectrogram spectrogram(frames);
+        Quasar::Spectrogram spectrogram(frames);
         CHECK_EQUAL(frames.count(), spectrogram.getFrameCount());
         CHECK_EQUAL(frames.frame(0).length(), spectrogram.getSpectrumSize());
     }

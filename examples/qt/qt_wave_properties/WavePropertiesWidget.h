@@ -14,7 +14,7 @@ class WavePropertiesWidget : public QTableWidget
 public:
     WavePropertiesWidget(QWidget* parent = 0);
 
-    void setWaveFile(Aquila::WaveFile* wav);
+    void setWaveFile(Quasar::WaveFile* wav);
 };
 
 #endif // WAVEPROPERTIESWIDGET_H

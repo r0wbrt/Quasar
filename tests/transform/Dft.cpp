@@ -8,41 +8,41 @@ SUITE(Dft)
 {
     TEST(Delta)
     {
-        deltaSpectrumTest<Aquila::Dft, 8>();
-        deltaSpectrumTest<Aquila::Dft, 16>();
-        deltaSpectrumTest<Aquila::Dft, 128>();
-        deltaSpectrumTest<Aquila::Dft, 1024>();
+        deltaSpectrumTest<Quasar::Dft, 8>();
+        deltaSpectrumTest<Quasar::Dft, 16>();
+        deltaSpectrumTest<Quasar::Dft, 128>();
+        deltaSpectrumTest<Quasar::Dft, 1024>();
     }
 
     TEST(ConstSignal)
     {
-        constSpectrumTest<Aquila::Dft, 8>();
-        constSpectrumTest<Aquila::Dft, 16>();
-        constSpectrumTest<Aquila::Dft, 128>();
-        constSpectrumTest<Aquila::Dft, 1024>();
+        constSpectrumTest<Quasar::Dft, 8>();
+        constSpectrumTest<Quasar::Dft, 16>();
+        constSpectrumTest<Quasar::Dft, 128>();
+        constSpectrumTest<Quasar::Dft, 1024>();
     }
 
     TEST(DeltaInverse)
     {
-        deltaInverseTest<Aquila::Dft, 8>();
-        deltaInverseTest<Aquila::Dft, 16>();
-        deltaInverseTest<Aquila::Dft, 128>();
-        deltaInverseTest<Aquila::Dft, 1024>();
+        deltaInverseTest<Quasar::Dft, 8>();
+        deltaInverseTest<Quasar::Dft, 16>();
+        deltaInverseTest<Quasar::Dft, 128>();
+        deltaInverseTest<Quasar::Dft, 1024>();
     }
 
     TEST(ConstInverse)
     {
-        constInverseTest<Aquila::Dft, 8>();
-        constInverseTest<Aquila::Dft, 16>();
-        constInverseTest<Aquila::Dft, 128>();
-        constInverseTest<Aquila::Dft, 1024>();
+        constInverseTest<Quasar::Dft, 8>();
+        constInverseTest<Quasar::Dft, 16>();
+        constInverseTest<Quasar::Dft, 128>();
+        constInverseTest<Quasar::Dft, 1024>();
     }
 
     TEST(Identity)
     {
-        identityTest<Aquila::Dft, 8>();
-        identityTest<Aquila::Dft, 16>();
-        identityTest<Aquila::Dft, 128>();
-        identityTest<Aquila::Dft, 1024>();
+        identityTest<Quasar::Dft, 8>();
+        identityTest<Quasar::Dft, 16>();
+        identityTest<Quasar::Dft, 128>();
+        identityTest<Quasar::Dft, 1024>();
     }
 }

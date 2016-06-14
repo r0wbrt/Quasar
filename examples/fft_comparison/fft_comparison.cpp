@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <iostream>
 
-double difference(Aquila::SpectrumType correct, Aquila::SpectrumType checked)
+double difference(Quasar::SpectrumType correct, Quasar::SpectrumType checked)
 {
     double val = 0.0;
     for (std::size_t i = 0; i < correct.size(); ++i)
@@ -22,27 +22,27 @@ double difference(Aquila::SpectrumType correct, Aquila::SpectrumType checked)
 
 int main()
 {
-    const Aquila::FrequencyType sampleFrequency = 8000.0;
+    const Quasar::FrequencyType sampleFrequency = 8000.0;
 
     std::cout << "    N    |    Aquila FFT    |     Ooura      \n"
                  "---------+------------------+----------------\n";
     for (int power = 1; power <= 10; ++power)
     {
         std::size_t N = 1 << power;
-        Aquila::WhiteNoiseGenerator source(sampleFrequency);
+        Quasar::WhiteNoiseGenerator source(sampleFrequency);
         source.setAmplitude(1024).generate(N);
 
         // reference spectrum calculated using DFT
-        Aquila::Dft dft(N);
-        Aquila::SpectrumType dftSpectrum = dft.fft(source.toArray());
+        Quasar::Dft dft(N);
+        Quasar::SpectrumType dftSpectrum = dft.fft(source.toArray());
 
         // Aquila custom algorithm
-        Aquila::AquilaFft myFft(N);
-        Aquila::SpectrumType aquilaSpectrum = myFft.fft(source.toArray());
+        Quasar::AquilaFft myFft(N);
+        Quasar::SpectrumType aquilaSpectrum = myFft.fft(source.toArray());
 
         // Ooura algorithm
-        Aquila::OouraFft oouraFft(N);
-        Aquila::SpectrumType oouraSpectrum = oouraFft.fft(source.toArray());
+        Quasar::OouraFft oouraFft(N);
+        Quasar::SpectrumType oouraSpectrum = oouraFft.fft(source.toArray());
 
         std::cout << "  " << std::left << std::setw(7) << N <<
                      "|  " << std::setw(16) <<

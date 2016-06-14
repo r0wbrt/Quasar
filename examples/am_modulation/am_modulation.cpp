@@ -7,15 +7,15 @@
 int main(int argc, char *argv[])
 {
     const std::size_t SIZE = 64;
-    const Aquila::FrequencyType sampleFrequency = 10000;
-    Aquila::TextPlot plot;
+    const Quasar::FrequencyType sampleFrequency = 10000;
+    Quasar::TextPlot plot;
 
-    Aquila::SineGenerator input(sampleFrequency);
+    Quasar::SineGenerator input(sampleFrequency);
     input.setAmplitude(3).setFrequency(160).generate(SIZE);
     plot.setTitle("Input signal - a \"slow\" sine wave");
     plot.plot(input);
 
-    Aquila::SineGenerator carrier(sampleFrequency);
+    Quasar::SineGenerator carrier(sampleFrequency);
     carrier.setFrequency(1000).setAmplitude(10).generate(SIZE);
     plot.setTitle("Carrier wave");
     plot.plot(carrier);

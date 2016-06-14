@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-    Aquila::SquareGenerator generator(1000);
+    Quasar::SquareGenerator generator(1000);
     generator.setFrequency(125).setAmplitude(255).generate(64);
-    Aquila::TextPlot plot("Square wave");
+    Quasar::TextPlot plot("Square wave");
     plot.plot(generator);
 
     generator.setDuty(0.25).generate(64);

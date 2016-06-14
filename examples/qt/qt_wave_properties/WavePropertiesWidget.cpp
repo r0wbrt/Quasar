@@ -38,7 +38,7 @@ WavePropertiesWidget::WavePropertiesWidget(QWidget* parent):
  *
  * @param wav the object to display
  */
-void WavePropertiesWidget::setWaveFile(Aquila::WaveFile* wav)
+void WavePropertiesWidget::setWaveFile(Quasar::WaveFile* wav)
 {
     QString path = QString::fromStdString(wav->getFilename());
     QFileInfo fi(path);

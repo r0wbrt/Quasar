@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
     std::generate_n(testArray, SIZE, std::rand);
 
     // wrap the array with SignalSource and divide it into frames
-    Aquila::SignalSource data(testArray, SIZE, 44100);
-    Aquila::FramesCollection frames(data, FRAME_SIZE);
+    Quasar::SignalSource data(testArray, SIZE, 44100);
+    Quasar::FramesCollection frames(data, FRAME_SIZE);
     std::cout << "Signal size: " << SIZE
               << ", frame size: " << FRAME_SIZE
               << ", number of frames: " << frames.count() << std::endl;

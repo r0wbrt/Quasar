@@ -8,25 +8,25 @@ SUITE(AquilaFft)
 {
     TEST(Delta)
     {
-        deltaSpectrumTest<Aquila::AquilaFft, 8>();
-        deltaSpectrumTest<Aquila::AquilaFft, 16>();
-        deltaSpectrumTest<Aquila::AquilaFft, 128>();
-        deltaSpectrumTest<Aquila::AquilaFft, 1024>();
+        deltaSpectrumTest<Quasar::AquilaFft, 8>();
+        deltaSpectrumTest<Quasar::AquilaFft, 16>();
+        deltaSpectrumTest<Quasar::AquilaFft, 128>();
+        deltaSpectrumTest<Quasar::AquilaFft, 1024>();
     }
 
     TEST(ConstSignal)
     {
-        constSpectrumTest<Aquila::AquilaFft, 8>();
-        constSpectrumTest<Aquila::AquilaFft, 16>();
-        constSpectrumTest<Aquila::AquilaFft, 128>();
-        constSpectrumTest<Aquila::AquilaFft, 1024>();
+        constSpectrumTest<Quasar::AquilaFft, 8>();
+        constSpectrumTest<Quasar::AquilaFft, 16>();
+        constSpectrumTest<Quasar::AquilaFft, 128>();
+        constSpectrumTest<Quasar::AquilaFft, 1024>();
     }
 
     TEST(Identity)
     {
-        identityTest<Aquila::AquilaFft, 8>();
-        identityTest<Aquila::AquilaFft, 16>();
-        identityTest<Aquila::AquilaFft, 128>();
-        identityTest<Aquila::AquilaFft, 1024>();
+        identityTest<Quasar::AquilaFft, 8>();
+        identityTest<Quasar::AquilaFft, 16>();
+        identityTest<Quasar::AquilaFft, 128>();
+        identityTest<Quasar::AquilaFft, 1024>();
     }
 }

@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-    Aquila::SineGenerator generator(1000);
+    Quasar::SineGenerator generator(1000);
     generator.setFrequency(32).setAmplitude(255).generate(64);
-    Aquila::TextPlot plot("Sine wave");
+    Quasar::TextPlot plot("Sine wave");
     plot.plot(generator);
 
     // resize the generator

@@ -7,7 +7,7 @@
 SUITE(TriangleGenerator)
 {
     // sample frequency is fixed at 1 kHz
-    Aquila::TriangleGenerator gen(1000);
+    Quasar::TriangleGenerator gen(1000);
 
     TEST(Amplitude)
     {

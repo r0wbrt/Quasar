@@ -5,7 +5,7 @@
 #include <vector>
 
 
-void checkEqualPaths(Aquila::DtwPathType expectedPath, Aquila::DtwPathType path)
+void checkEqualPaths(Quasar::DtwPathType expectedPath, Quasar::DtwPathType path)
 {
     for (std::size_t i = 0; i < path.size(); ++i)
     {
@@ -23,7 +23,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 1, 2}, arr2[SIZE] = {1, 2, 3};
         std::vector<double> v1(arr1, arr1 + SIZE), v2(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(v1);
         from.push_back(v2);
         to.push_back(v1);
@@ -31,7 +31,7 @@ SUITE(Dtw)
         to.push_back(v1);
         to.push_back(v2);
 
-        Aquila::Dtw dtw;
+        Quasar::Dtw dtw;
         dtw.getDistance(from, to);
         auto points = dtw.getPoints();
 
@@ -45,13 +45,13 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 1, 2}, arr2[SIZE] = {1, 2, 3};
         std::vector<double> v1(arr1, arr1 + SIZE), v2(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(v1);
         from.push_back(v2);
         to.push_back(v1);
         to.push_back(v2);
 
-        Aquila::Dtw dtw;
+        Quasar::Dtw dtw;
         double distance = dtw.getDistance(from, to);
 
         CHECK_CLOSE(0.0, distance, 0.000001);
@@ -63,7 +63,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(zeros);
         from.push_back(ones);
         from.push_back(ones);
@@ -81,7 +81,7 @@ SUITE(Dtw)
          * and the lowest-cost path will be on the diagonal.
          */
 
-        Aquila::Dtw dtw(Aquila::manhattanDistance);
+        Quasar::Dtw dtw(Quasar::manhattanDistance);
         double distance = dtw.getDistance(from, to);
 
         CHECK_CLOSE(0.0, distance, 0.000001);
@@ -93,7 +93,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(zeros);
         from.push_back(zeros);
         from.push_back(zeros);
@@ -114,7 +114,7 @@ SUITE(Dtw)
          * the distance is a non-zero value.
          */
 
-        Aquila::Dtw dtw(Aquila::manhattanDistance);
+        Quasar::Dtw dtw(Quasar::manhattanDistance);
         double distance = dtw.getDistance(from, to);
 
         CHECK_CLOSE(9.0, distance, 0.000001);
@@ -126,7 +126,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to1, to2;
+        Quasar::DtwDataType from, to1, to2;
         from.push_back(zeros);
         from.push_back(zeros);
         from.push_back(zeros);
@@ -141,7 +141,7 @@ SUITE(Dtw)
          * 000 is more "similar" to 001 than 011, therefore distance between
          * from and to1 should be smaller
          */
-        Aquila::Dtw dtw;
+        Quasar::Dtw dtw;
         double distance1 = dtw.getDistance(from, to1);
         double distance2 = dtw.getDistance(from, to2);
 
@@ -154,7 +154,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to1, to2;
+        Quasar::DtwDataType from, to1, to2;
         from.push_back(zeros);
         from.push_back(zeros);
         from.push_back(zeros);
@@ -167,7 +167,7 @@ SUITE(Dtw)
          * 000 is more "similar" to 01 than 11, therefore distance between
          * from and to1 should be smaller
          */
-        Aquila::Dtw dtw;
+        Quasar::Dtw dtw;
         double distance1 = dtw.getDistance(from, to1);
         double distance2 = dtw.getDistance(from, to2);
 
@@ -180,18 +180,18 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(zeros);
         to.push_back(ones);
 
-        Aquila::Dtw dtw;
+        Quasar::Dtw dtw;
         dtw.getDistance(from, to);
         auto path = dtw.getPath();
 
         CHECK_EQUAL(1ul, path.size());
 
-        Aquila::DtwPathType expectedPath;
-        expectedPath.push_back(Aquila::DtwPoint(0, 0));
+        Quasar::DtwPathType expectedPath;
+        expectedPath.push_back(Quasar::DtwPoint(0, 0));
         checkEqualPaths(expectedPath, path);
     }
 
@@ -201,7 +201,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(zeros);
         from.push_back(zeros);
         from.push_back(zeros);
@@ -209,16 +209,16 @@ SUITE(Dtw)
         to.push_back(ones);
         to.push_back(ones);
 
-        Aquila::Dtw dtw;
+        Quasar::Dtw dtw;
         dtw.getDistance(from, to);
         auto path = dtw.getPath();
 
         CHECK_EQUAL(3ul, path.size());
 
-        Aquila::DtwPathType expectedPath;
-        expectedPath.push_back(Aquila::DtwPoint(2, 2));
-        expectedPath.push_back(Aquila::DtwPoint(1, 1));
-        expectedPath.push_back(Aquila::DtwPoint(0, 0));
+        Quasar::DtwPathType expectedPath;
+        expectedPath.push_back(Quasar::DtwPoint(2, 2));
+        expectedPath.push_back(Quasar::DtwPoint(1, 1));
+        expectedPath.push_back(Quasar::DtwPoint(0, 0));
         checkEqualPaths(expectedPath, path);
     }
 
@@ -228,7 +228,7 @@ SUITE(Dtw)
         double arr1[SIZE] = {0, 0, 0}, arr2[SIZE] = {1, 1, 1};
         std::vector<double> zeros(arr1, arr1 + SIZE), ones(arr2, arr2 + SIZE);
 
-        Aquila::DtwDataType from, to;
+        Quasar::DtwDataType from, to;
         from.push_back(zeros);
         from.push_back(zeros);
         from.push_back(zeros);
@@ -236,15 +236,15 @@ SUITE(Dtw)
         to.push_back(ones);
         to.push_back(ones);
 
-        Aquila::Dtw dtw(Aquila::euclideanDistance, Aquila::Dtw::Diagonals);
+        Quasar::Dtw dtw(Quasar::euclideanDistance, Quasar::Dtw::Diagonals);
         dtw.getDistance(from, to);
         auto path = dtw.getPath();
 
         CHECK_EQUAL(2ul, path.size());
 
-        Aquila::DtwPathType expectedPath;
-        expectedPath.push_back(Aquila::DtwPoint(2, 2));
-        expectedPath.push_back(Aquila::DtwPoint(0, 1));
+        Quasar::DtwPathType expectedPath;
+        expectedPath.push_back(Quasar::DtwPoint(2, 2));
+        expectedPath.push_back(Quasar::DtwPoint(0, 1));
         checkEqualPaths(expectedPath, path);
     }
 }

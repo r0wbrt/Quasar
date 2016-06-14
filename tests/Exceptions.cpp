@@ -8,9 +8,9 @@ SUITE(Exceptions)
     {
         try
         {
-            throw Aquila::Exception("message");
+            throw Quasar::Exception("message");
         }
-        catch (const Aquila::Exception& exc)
+        catch (const Quasar::Exception& exc)
         {
             CHECK_EQUAL("message", exc.what());
         }
@@ -20,9 +20,9 @@ SUITE(Exceptions)
     {
         try
         {
-            throw Aquila::FormatException("message");
+            throw Quasar::FormatException("message");
         }
-        catch (const Aquila::FormatException& exc)
+        catch (const Quasar::FormatException& exc)
         {
             CHECK_EQUAL("message", exc.what());
         }
@@ -32,9 +32,9 @@ SUITE(Exceptions)
     {
         try
         {
-            throw Aquila::ConfigurationException("message");
+            throw Quasar::ConfigurationException("message");
         }
-        catch (const Aquila::ConfigurationException& exc)
+        catch (const Quasar::ConfigurationException& exc)
         {
             CHECK_EQUAL("message", exc.what());
         }

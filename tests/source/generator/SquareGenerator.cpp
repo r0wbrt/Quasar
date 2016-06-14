@@ -7,7 +7,7 @@
 SUITE(SquareGenerator)
 {
     // sample frequency is fixed at 1 kHz
-    Aquila::SquareGenerator gen(1000);
+    Quasar::SquareGenerator gen(1000);
     auto isPositive = [](double x) { return x > 0; };
 
     TEST(Amplitude)

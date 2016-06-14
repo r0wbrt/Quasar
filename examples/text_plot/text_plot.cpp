@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
         arr[i] = i % 10;
     }
 
-    Aquila::TextPlot plot("Example plot");
+    Quasar::TextPlot plot("Example plot");
     plot.plot(arr, SIZE);
 
     return 0;

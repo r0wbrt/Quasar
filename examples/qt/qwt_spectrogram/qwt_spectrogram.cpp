@@ -15,7 +15,7 @@
 class SpectrogramData : public QwtMatrixRasterData
 {
 public:
-    SpectrogramData(const Aquila::Spectrogram& spectrogram):
+    SpectrogramData(const Quasar::Spectrogram& spectrogram):
         m_spectrogram(spectrogram)
     {
         const std::size_t width = m_spectrogram.getFrameCount();
@@ -26,7 +26,7 @@ public:
         {
             for (std::size_t x = 0; x < width; ++x)
             {
-                auto val = Aquila::dB(m_spectrogram.getPoint(x, y));
+                auto val = Quasar::dB(m_spectrogram.getPoint(x, y));
                 values << val;
                 if (val > maxValue)
                 {
@@ -41,29 +41,29 @@ public:
     }
 
 private:
-    const Aquila::Spectrogram& m_spectrogram;
+    const Quasar::Spectrogram& m_spectrogram;
 };
 
 
 int main(int argc, char *argv[])
 {
-    const Aquila::FrequencyType sampleFrequency = 44100;
+    const Quasar::FrequencyType sampleFrequency = 44100;
     const std::size_t SIZE = sampleFrequency * 2;
 
-    Aquila::SignalSource* source = nullptr;
+    Quasar::SignalSource* source = nullptr;
     if (argc >= 2)
     {
-        source = new Aquila::WaveFile(argv[1]);
+        source = new Quasar::WaveFile(argv[1]);
     }
     else
     {
-        auto generator = new Aquila::SineGenerator(sampleFrequency);
+        auto generator = new Quasar::SineGenerator(sampleFrequency);
         generator->setAmplitude(5).setFrequency(1000).generate(SIZE);
         source = generator;
     }
 
-    Aquila::FramesCollection frames(*source, 1024);
-    Aquila::Spectrogram spectrogram(frames);
+    Quasar::FramesCollection frames(*source, 1024);
+    Quasar::Spectrogram spectrogram(frames);
 
     QApplication a(argc, argv);
     auto plot = new QwtPlot();

@@ -13,7 +13,7 @@
 class NoteReader
 {
 public:
-    NoteReader(Aquila::Synthesizer& synthesizer):
+    NoteReader(Quasar::Synthesizer& synthesizer):
         m_synthesizer(synthesizer)
     {
     }
@@ -54,7 +54,7 @@ public:
     }
 
 private:
-    Aquila::Synthesizer& m_synthesizer;
+    Quasar::Synthesizer& m_synthesizer;
 };
 
 const std::string Cmajor =
@@ -79,8 +79,8 @@ const std::string Cmajor =
 int main(int argc, char** argv)
 {
     std::cout << "Plucked string synthesis using Karplus-Strong algorithm\n";
-    const Aquila::FrequencyType SAMPLE_FREQUENCY = 44100;
-    Aquila::KarplusStrongSynthesizer synth(SAMPLE_FREQUENCY);
+    const Quasar::FrequencyType SAMPLE_FREQUENCY = 44100;
+    Quasar::KarplusStrongSynthesizer synth(SAMPLE_FREQUENCY);
     NoteReader reader(synth);
     if (argc < 2)
     {

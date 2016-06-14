@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-    Aquila::TriangleGenerator generator(1000);
+    Quasar::TriangleGenerator generator(1000);
     generator.setFrequency(25).setAmplitude(255).generate(64);
-    Aquila::TextPlot plot("Sawtooth wave");
+    Quasar::TextPlot plot("Sawtooth wave");
     plot.plot(generator);
 
     generator.setWidth(0.5).generate(64);

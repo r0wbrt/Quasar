@@ -9,29 +9,29 @@
 int main(int argc, char *argv[])
 {
     const std::size_t LENGTH = 65;
-    Aquila::TextPlot plot;
+    Quasar::TextPlot plot;
 
-    Aquila::BarlettWindow barlett(LENGTH);
+    Quasar::BarlettWindow barlett(LENGTH);
     plot.setTitle("Barlett");
     plot.plot(barlett);
 
-    Aquila::BlackmanWindow blackman(LENGTH);
+    Quasar::BlackmanWindow blackman(LENGTH);
     plot.setTitle("Blackman");
     plot.plot(blackman);
 
-    Aquila::FlattopWindow flattop(LENGTH);
+    Quasar::FlattopWindow flattop(LENGTH);
     plot.setTitle("Flattop");
     plot.plot(flattop);
 
-    Aquila::HammingWindow hamming(LENGTH);
+    Quasar::HammingWindow hamming(LENGTH);
     plot.setTitle("Hamming");
     plot.plot(hamming);
 
-    Aquila::HannWindow hann(LENGTH);
+    Quasar::HannWindow hann(LENGTH);
     plot.setTitle("Hann");
     plot.plot(hann);
 
-    Aquila::RectangularWindow rect(LENGTH);
+    Quasar::RectangularWindow rect(LENGTH);
     plot.setTitle("Rectangular");
     plot.plot(rect);
 

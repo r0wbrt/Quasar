@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8.11)
-project(Aquila CXX)
+project(Quasar CXX)
 
-set(Aquila_VERSION_MAJOR 3)
-set(Aquila_VERSION_MINOR 0)
-set(Aquila_VERSION_PATCH 0)
-set(Aquila_VERSION_SUFFIX "-dev")
-set(Aquila_VERSION "${Aquila_VERSION_MAJOR}.${Aquila_VERSION_MINOR}.${Aquila_VERSION_PATCH}${Aquila_VERSION_SUFFIX}")
+set(Quasar_VERSION_MAJOR 3)
+set(Quasar_VERSION_MINOR 0)
+set(Quasar_VERSION_PATCH 0)
+set(Quasar_VERSION_SUFFIX "-dev")
+set(Quasar_VERSION "${Quasar_VERSION_MAJOR}.${Quasar_VERSION_MINOR}.${Quasar_VERSION_PATCH}${Quasar_VERSION_SUFFIX}")
 
 
 ################################################################################
@@ -14,8 +14,8 @@ set(Aquila_VERSION "${Aquila_VERSION_MAJOR}.${Aquila_VERSION_MINOR}.${Aquila_VER
 #
 ################################################################################
 
-option(Aquila_BUILD_EXAMPLES "Build example programs?" ON)
-option(Aquila_BUILD_TESTS "Build test programs?" ON)
+option(Quasar_BUILD_EXAMPLES "Build example programs?" ON)
+option(Quasar_BUILD_TESTS "Build test programs?" ON)
 
 ################################################################################
 #
@@ -23,12 +23,12 @@ option(Aquila_BUILD_TESTS "Build test programs?" ON)
 #
 ################################################################################
 
-# libraries bundled with Aquila
+# libraries bundled with Quasar
 add_subdirectory(lib)
-set(Aquila_LIBRARIES_TO_LINK_WITH Ooura_fft)
+set(Quasar_LIBRARIES_TO_LINK_WITH Ooura_fft)
 
 # additional CMake modules
-set(CMAKE_MODULE_PATH "${Aquila_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH "${Quasar_SOURCE_DIR}/cmake")
 
 # SFML - if available
 #set(SFML_STATIC true)
@@ -36,7 +36,7 @@ find_package(SFML COMPONENTS System Audio)
 if(SFML_FOUND)
     message("SFML was found, wrappers and examples using SFML will be built.")
     include_directories(${SFML_INCLUDE_DIR})
-    list(APPEND Aquila_LIBRARIES_TO_LINK_WITH ${SFML_LIBRARY})
+    list(APPEND Quasar_LIBRARIES_TO_LINK_WITH ${SFML_LIBRARY})
 else()
     message(WARNING "SFML was not found, wrappers and examples using SFML will not be built.")
 endif()
@@ -44,99 +44,90 @@ endif()
 
 ################################################################################
 #
-# Aquila sources
+# Quasar sources
 #
 ################################################################################
 
 # library headers
-set(Aquila_HEADERS
-    aquila/aquila.h
-    aquila/global.h
-    aquila/functions.h
-#    aquila/Exceptions.h
-#    aquila/source.h
-#    aquila/tools.h
-#    aquila/transform.h
-#    aquila/filter.h
-#    aquila/ml.h
-#    aquila/filter/MelFilter.h
-#    aquila/filter/MelFilterBank.h
-#    aquila/ml/DtwPoint.h
-#    aquila/ml/Dtw.h
-    aquila/source/SignalSource.h
-    aquila/source/Frame.h
-    aquila/source/FramesCollection.h
-#    aquila/source/PlainTextFile.h
-#    aquila/source/RawPcmFile.h
-#    aquila/source/WaveFile.h
-#    aquila/source/WaveFileHandler.h
-    aquila/source/generator/Generator.h
-    aquila/source/generator/SineGenerator.h
-    aquila/source/generator/SquareGenerator.h
-    aquila/source/generator/TriangleGenerator.h
-    aquila/source/generator/PinkNoiseGenerator.h
-    aquila/source/generator/WhiteNoiseGenerator.h
-    aquila/source/generator/ChirpGenerator.h
-    aquila/source/window/BarlettWindow.h
-    aquila/source/window/BlackmanHarrisWindow.h
-    aquila/source/window/BlackmanWindow.h
-    aquila/source/window/BlackmanNuttallWindow.h
-    aquila/source/window/FlattopWindow.h
-    aquila/source/window/GaussianWindow.h
-    aquila/source/window/HammingWindow.h
-    aquila/source/window/HannWindow.h
-    aquila/source/window/RectangularWindow.h
-    aquila/transform/Fft.h
-    aquila/transform/Dft.h
-    aquila/transform/AquilaFft.h
-    aquila/transform/OouraFft.h
-    aquila/transform/FftFactory.h
-    aquila/transform/Dct.h
-    aquila/transform/Mfcc.h
-#    aquila/transform/Spectrogram.h
-#    aquila/tools/TextPlot.h
+set(Quasar_HEADERS
+    Quasar/quasar.h
+    Quasar/global.h
+    Quasar/functions.h
+#    Quasar/Exceptions.h
+#    Quasar/source.h
+#    Quasar/tools.h
+#    Quasar/transform.h
+#    Quasar/filter.h
+#    Quasar/ml.h
+#    Quasar/filter/MelFilter.h
+#    Quasar/filter/MelFilterBank.h
+#    Quasar/ml/DtwPoint.h
+#    Quasar/ml/Dtw.h
+    Quasar/source/SignalSource.h
+    Quasar/source/Frame.h
+    Quasar/source/FramesCollection.h
+#    Quasar/source/PlainTextFile.h
+#    Quasar/source/RawPcmFile.h
+#    Quasar/source/WaveFile.h
+#    Quasar/source/WaveFileHandler.h
+    Quasar/source/generator/Generator.h
+    Quasar/source/generator/SineGenerator.h
+    Quasar/source/generator/SquareGenerator.h
+    Quasar/source/generator/TriangleGenerator.h
+    Quasar/source/generator/PinkNoiseGenerator.h
+    Quasar/source/generator/WhiteNoiseGenerator.h
+    Quasar/source/generator/ChirpGenerator.h
+    Quasar/source/window/BarlettWindow.h
+    Quasar/source/window/BlackmanHarrisWindow.h
+    Quasar/source/window/BlackmanWindow.h
+    Quasar/source/window/BlackmanNuttallWindow.h
+    Quasar/source/window/FlattopWindow.h
+    Quasar/source/window/GaussianWindow.h
+    Quasar/source/window/HammingWindow.h
+    Quasar/source/window/HannWindow.h
+    Quasar/source/window/RectangularWindow.h
+    Quasar/transform/Fft.h
+    Quasar/transform/Dft.h
+    Quasar/transform/QuasarFft.h
+    Quasar/transform/OouraFft.h
+    Quasar/transform/FftFactory.h
+    Quasar/transform/Dct.h
+    Quasar/transform/Mfcc.h
+#    Quasar/transform/Spectrogram.h
+#    Quasar/tools/TextPlot.h
 )
 
 # library sources
-set(Aquila_SOURCES
-#    aquila/filter/MelFilter.cpp
-#    aquila/filter/MelFilterBank.cpp
-#    aquila/ml/Dtw.cpp
-#   aquila/source/SignalSource.cpp
-#   aquila/source/Frame.cpp
-#   aquila/source/FramesCollection.cpp
-#   aquila/source/PlainTextFile.cpp
-#   aquila/source/WaveFile.cpp
-#   aquila/source/WaveFileHandler.cpp
-   aquila/source/window/FlattopWindow.cpp
-   aquila/source/window/GaussianWindow.cpp
-   aquila/source/window/HammingWindow.cpp
-   aquila/source/window/HannWindow.cpp
-	aquila/source/window/GuassianWindow.cpp
-    aquila/transform/Dft.cpp
-    aquila/transform/AquilaFft.cpp
-    aquila/transform/OouraFft.cpp
-    aquila/transform/FftFactory.cpp
-    aquila/transform/Dct.cpp
-    aquila/transform/Mfcc.cpp
-    aquila/transform/Spectrogram.cpp
-    aquila/tools/TextPlot.cpp
+set(Quasar_SOURCES
+#    Quasar/filter/MelFilter.cpp
+#    Quasar/filter/MelFilterBank.cpp
+#    Quasar/ml/Dtw.cpp
+#   Quasar/source/PlainTextFile.cpp
+#   Quasar/source/WaveFile.cpp
+#   Quasar/source/WaveFileHandler.cpp
+#    Quasar/transform/Dft.cpp
+#    Quasar/transform/QuasarFft.cpp
+#    Quasar/transform/OouraFft.cpp
+#    Quasar/transform/FftFactory.cpp
+#    Quasar/transform/Dct.cpp
+#    Quasar/transform/Mfcc.cpp
+#    Quasar/transform/Spectrogram.cpp
 )
 
 # SFML wrappers
 if(SFML_FOUND)
-    list(APPEND Aquila_HEADERS
-        aquila/synth.h
-        aquila/wrappers/SoundBufferAdapter.h
-        aquila/synth/Synthesizer.h
-        aquila/synth/KarplusStrongSynthesizer.h
-        aquila/synth/SineSynthesizer.h
+    list(APPEND Quasar_HEADERS
+        Quasar/synth.h
+        Quasar/wrappers/SoundBufferAdapter.h
+        Quasar/synth/Synthesizer.h
+        Quasar/synth/KarplusStrongSynthesizer.h
+        Quasar/synth/SineSynthesizer.h
     )
-    list(APPEND Aquila_SOURCES
-        aquila/wrappers/SoundBufferAdapter.cpp
-        aquila/synth/Synthesizer.cpp
-        aquila/synth/KarplusStrongSynthesizer.cpp
-        aquila/synth/SineSynthesizer.cpp
+    list(APPEND Quasar_SOURCES
+        Quasar/wrappers/SoundBufferAdapter.cpp
+        Quasar/synth/Synthesizer.cpp
+        Quasar/synth/KarplusStrongSynthesizer.cpp
+        Quasar/synth/SineSynthesizer.cpp
     )
 endif()
 
@@ -167,7 +158,7 @@ endif()
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -Wextra -Wcast-qual -Wcast-align -Wno-unused-parameter -Wmissing-include-dirs -Wpointer-arith -Wredundant-decls -Wshadow -fprofile-arcs -ftest-coverage")
     include(CodeCoverage)
-    setup_target_for_coverage(coverage aquila_test htmlcov)
+    setup_target_for_coverage(coverage Quasar_test htmlcov)
 endif()
 
 
@@ -177,20 +168,20 @@ endif()
 #
 ################################################################################
 
-# main Aquila library
-add_library(Aquila ${Aquila_HEADERS} ${Aquila_SOURCES})
+# main Quasar library
+add_library(Quasar ${Quasar_HEADERS} ${Quasar_SOURCES})
 
 # linking with extra libs
-target_link_libraries(Aquila ${Aquila_LIBRARIES_TO_LINK_WITH})
+target_link_libraries(Quasar ${Quasar_LIBRARIES_TO_LINK_WITH})
 
 # examples
-if(Aquila_BUILD_EXAMPLES)
+if(Quasar_BUILD_EXAMPLES)
     add_custom_target(examples)
     add_subdirectory(examples)
 endif()
 
 #tests
-if(Aquila_BUILD_TESTS)
+if(Quasar_BUILD_TESTS)
     enable_testing()
     set(UNITTESTPP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/unittestpp/")
     add_subdirectory(tests)
@@ -225,12 +216,12 @@ endif()
 ################################################################################
 
 # install the binaries and include files
-install(TARGETS Aquila
+install(TARGETS Quasar
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION bin)
-install(DIRECTORY aquila/ DESTINATION include/aquila FILES_MATCHING PATTERN "*.h")
-install(FILES CHANGELOG LICENSE README.md DESTINATION share/aquila)
+install(DIRECTORY Quasar/ DESTINATION include/Quasar FILES_MATCHING PATTERN "*.h")
+install(FILES CHANGELOG LICENSE README.md DESTINATION share/Quasar)
 
 
 ################################################################################

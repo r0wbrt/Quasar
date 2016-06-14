@@ -8,41 +8,41 @@ SUITE(OouraFft)
 {
     TEST(Delta)
     {
-        deltaSpectrumTest<Aquila::OouraFft, 8>();
-        deltaSpectrumTest<Aquila::OouraFft, 16>();
-        deltaSpectrumTest<Aquila::OouraFft, 128>();
-        deltaSpectrumTest<Aquila::OouraFft, 1024>();
+        deltaSpectrumTest<Quasar::OouraFft, 8>();
+        deltaSpectrumTest<Quasar::OouraFft, 16>();
+        deltaSpectrumTest<Quasar::OouraFft, 128>();
+        deltaSpectrumTest<Quasar::OouraFft, 1024>();
     }
 
     TEST(ConstSignal)
     {
-        constSpectrumTest<Aquila::OouraFft, 8>();
-        constSpectrumTest<Aquila::OouraFft, 16>();
-        constSpectrumTest<Aquila::OouraFft, 128>();
-        constSpectrumTest<Aquila::OouraFft, 1024>();
+        constSpectrumTest<Quasar::OouraFft, 8>();
+        constSpectrumTest<Quasar::OouraFft, 16>();
+        constSpectrumTest<Quasar::OouraFft, 128>();
+        constSpectrumTest<Quasar::OouraFft, 1024>();
     }
 
     TEST(DeltaInverse)
     {
-        deltaInverseTest<Aquila::OouraFft, 8>();
-        deltaInverseTest<Aquila::OouraFft, 16>();
-        deltaInverseTest<Aquila::OouraFft, 128>();
-        deltaInverseTest<Aquila::OouraFft, 1024>();
+        deltaInverseTest<Quasar::OouraFft, 8>();
+        deltaInverseTest<Quasar::OouraFft, 16>();
+        deltaInverseTest<Quasar::OouraFft, 128>();
+        deltaInverseTest<Quasar::OouraFft, 1024>();
     }
 
     TEST(ConstInverse)
     {
-        constInverseTest<Aquila::OouraFft, 8>();
-        constInverseTest<Aquila::OouraFft, 16>();
-        constInverseTest<Aquila::OouraFft, 128>();
-        constInverseTest<Aquila::OouraFft, 1024>();
+        constInverseTest<Quasar::OouraFft, 8>();
+        constInverseTest<Quasar::OouraFft, 16>();
+        constInverseTest<Quasar::OouraFft, 128>();
+        constInverseTest<Quasar::OouraFft, 1024>();
     }
 
     TEST(Identity)
     {
-        identityTest<Aquila::OouraFft, 8>();
-        identityTest<Aquila::OouraFft, 16>();
-        identityTest<Aquila::OouraFft, 128>();
-        identityTest<Aquila::OouraFft, 1024>();
+        identityTest<Quasar::OouraFft, 8>();
+        identityTest<Quasar::OouraFft, 16>();
+        identityTest<Quasar::OouraFft, 128>();
+        identityTest<Quasar::OouraFft, 1024>();
     }
 }

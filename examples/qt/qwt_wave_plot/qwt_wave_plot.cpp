@@ -11,7 +11,7 @@
 class SignalSourceData : public QwtSeriesData<QPointF>
 {
 public:
-    SignalSourceData(const Aquila::SignalSource& source):
+    SignalSourceData(const Quasar::SignalSource& source):
         m_source(source)
     {
     }
@@ -32,16 +32,16 @@ public:
     }
 
 private:
-    const Aquila::SignalSource& m_source;
+    const Quasar::SignalSource& m_source;
 };
 
 
 int main(int argc, char *argv[])
 {
     const std::size_t SIZE = 256;
-    const Aquila::FrequencyType sampleFrequency = 1024;
+    const Quasar::FrequencyType sampleFrequency = 1024;
 
-    Aquila::SineGenerator generator(sampleFrequency);
+    Quasar::SineGenerator generator(sampleFrequency);
     generator.setAmplitude(5).setFrequency(64).generate(SIZE);
 
     QApplication a(argc, argv);

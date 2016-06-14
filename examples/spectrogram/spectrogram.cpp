@@ -10,7 +10,7 @@
 int main(int argc, char *argv[])
 {
     const unsigned int SIGNAL_MS = 1000;
-    const Aquila::FrequencyType SAMPLE_FREQUENCY = 44100, SIGNAL_FREQUENCY = 1000;
+    const Quasar::FrequencyType SAMPLE_FREQUENCY = 44100, SIGNAL_FREQUENCY = 1000;
     const unsigned int SAMPLES_PER_SIGNAL = SAMPLE_FREQUENCY * SIGNAL_MS / 1000;
     const unsigned int SAMPLES_PER_FRAME = 1024;
 
@@ -24,33 +24,33 @@ int main(int argc, char *argv[])
     {
         generatorType = std::atoi(argv[1]);
     }
-    Aquila::Generator* generator = 0;
+    Quasar::Generator* generator = 0;
     if (SQUARE == generatorType)
     {
-        generator = new Aquila::SquareGenerator(SAMPLE_FREQUENCY);
+        generator = new Quasar::SquareGenerator(SAMPLE_FREQUENCY);
     }
     else if (TRIANGLE == generatorType)
     {
-        generator = new Aquila::TriangleGenerator(SAMPLE_FREQUENCY);
+        generator = new Quasar::TriangleGenerator(SAMPLE_FREQUENCY);
     }
     else
     {
-        generator = new Aquila::SineGenerator(SAMPLE_FREQUENCY);
+        generator = new Quasar::SineGenerator(SAMPLE_FREQUENCY);
     }
     generator->setFrequency(SIGNAL_FREQUENCY).setAmplitude(255).generate(SAMPLES_PER_SIGNAL);
 
-    Aquila::FramesCollection frames(*generator, SAMPLES_PER_FRAME);
+    Quasar::FramesCollection frames(*generator, SAMPLES_PER_FRAME);
     std::cout << frames.count() << " frames after division" << std::endl;
 
-    Aquila::Spectrogram spectrogram(frames);
+    Quasar::Spectrogram spectrogram(frames);
 
     for (std::size_t x = 0; x < spectrogram.getFrameCount(); ++x)
     {
         // output only half of the spectrogram, below Nyquist frequency
         for (std::size_t y = 0; y < spectrogram.getSpectrumSize() / 2; ++y)
         {
-            Aquila::ComplexType point = spectrogram.getPoint(x, y);
-            std::cout << Aquila::dB(point) << " ";
+            Quasar::ComplexType point = spectrogram.getPoint(x, y);
+            std::cout << Quasar::dB(point) << " ";
         }
         std::cout << "\n";
     }

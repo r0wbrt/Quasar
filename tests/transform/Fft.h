@@ -18,14 +18,14 @@ template <typename FftType, std::size_t SIZE>
 void deltaSpectrumTest()
 {
     // delta signal: 1, 0, 0, 0...
-    Aquila::SampleType testArray[SIZE] = {0};
+    Quasar::SampleType testArray[SIZE] = {0};
     testArray[0] = 1;
 
     FftType fft(SIZE);
-    Aquila::SpectrumType spectrum = fft.fft(testArray);
+    Quasar::SpectrumType spectrum = fft.fft(testArray);
 
     double absSpectrum[SIZE] = {0};
-    std::transform(std::begin(spectrum), std::end(spectrum), absSpectrum, [] (Aquila::ComplexType x) {
+    std::transform(std::begin(spectrum), std::end(spectrum), absSpectrum, [] (Quasar::ComplexType x) {
         return std::abs(x);
     });
 
@@ -40,14 +40,14 @@ void deltaSpectrumTest()
 template <typename FftType, std::size_t SIZE>
 void constSpectrumTest()
 {
-    Aquila::SampleType testArray[SIZE];
+    Quasar::SampleType testArray[SIZE];
     std::fill_n(testArray, SIZE, 1.0);
 
     FftType fft(SIZE);
-    Aquila::SpectrumType spectrum = fft.fft(testArray);
+    Quasar::SpectrumType spectrum = fft.fft(testArray);
 
     double absSpectrum[SIZE] = {0};
-    std::transform(std::begin(spectrum), std::end(spectrum), absSpectrum, [] (Aquila::ComplexType x) {
+    std::transform(std::begin(spectrum), std::end(spectrum), absSpectrum, [] (Quasar::ComplexType x) {
         return std::abs(x);
     });
 
@@ -63,9 +63,9 @@ void constSpectrumTest()
 template <typename FftType, std::size_t SIZE>
 void deltaInverseTest()
 {
-    Aquila::SpectrumType spectrum(SIZE, 0);
+    Quasar::SpectrumType spectrum(SIZE, 0);
     spectrum[0] = SIZE * 1.0;
-    Aquila::SampleType output[SIZE];
+    Quasar::SampleType output[SIZE];
     FftType fft(SIZE);
     fft.ifft(spectrum, output);
 
@@ -80,8 +80,8 @@ void deltaInverseTest()
 template <typename FftType, std::size_t SIZE>
 void constInverseTest()
 {
-    Aquila::SpectrumType spectrum(SIZE, 1.0);
-    Aquila::SampleType output[SIZE];
+    Quasar::SpectrumType spectrum(SIZE, 1.0);
+    Quasar::SampleType output[SIZE];
     FftType fft(SIZE);
     fft.ifft(spectrum, output);
 
@@ -96,13 +96,13 @@ void constInverseTest()
 template <typename FftType, std::size_t SIZE>
 void identityTest()
 {
-    Aquila::SampleType testArray[SIZE];
+    Quasar::SampleType testArray[SIZE];
     std::fill_n(testArray, SIZE, 1.0);
 
     FftType fft(SIZE);
-    Aquila::SpectrumType spectrum = fft.fft(testArray);
+    Quasar::SpectrumType spectrum = fft.fft(testArray);
 
-    Aquila::SampleType output[SIZE];
+    Quasar::SampleType output[SIZE];
     fft.ifft(spectrum, output);
 
     CHECK_ARRAY_CLOSE(testArray, output, SIZE, 0.0001);
