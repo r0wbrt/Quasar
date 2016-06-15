@@ -41,10 +41,11 @@ namespace Quasar
 	SignalSourceTemplateMod(DataType Sinc(DataType) = &boost::math::sinc_pi)
 	class SincFilter : public SignalSourceType
 	{
+	public:
 		SincFilter(FrequencyType SampleRate, DataType Frequency, std::size_t length) :
-			SignalSourceType:SignalSource(SampleRate)
+			SignalSourceType::SignalSource(SampleRate)
 		{
-			DataType B = Frequency / SampleRate;
+			DataType B = Frequency / static_cast<DataType>(SampleRate);
 
 			this->m_data.resize(2*length + 1);
 			for(std::size_t i = 0; i < length; i++)
@@ -55,7 +56,7 @@ namespace Quasar
 			}
 			this->m_data[length] = 2.0*B*Sinc(0.0);
 		}
-	}
+	};
 
 
 }
