@@ -70,6 +70,7 @@ set(Quasar_HEADERS
 #    Quasar/source/WaveFile.h
 #    Quasar/source/WaveFileHandler.h
 	Quasar/filter/RaisedCosineFilter.h
+	Quasar/filter/SincFilter.h
     Quasar/source/generator/Generator.h
     Quasar/source/generator/SineGenerator.h
     Quasar/source/generator/SquareGenerator.h
