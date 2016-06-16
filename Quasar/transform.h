@@ -20,12 +20,9 @@
 #define AQUILA_TRANSFORM_H
 
 #include "transform/Fft.h"
-#include "transform/Dft.h"
-#include "transform/AquilaFft.h"
 #include "transform/OouraFft.h"
 #include "transform/FftFactory.h"
 #include "transform/Dct.h"
 #include "transform/Mfcc.h"
-#include "transform/Spectrogram.h"
 
 #endif // AQUILA_TRANSFORM_H

@@ -106,18 +106,14 @@ namespace Quasar
                 sizeof(std::complex<double>[2]) == sizeof(double[4]),
                     "complex<double> has the same memory layout as two consecutive doubles"
             );
-            // interpret the vector as consecutive pairs of doubles (re,im)
-            double* nakedDataPointer = reinterpret_cast<double*>(spectrum.toArray());
 
             // Ooura's function
-            cdft(2*this->N, direction, nakedDataPointer, ip, w);
+            cdft(2*this->N, direction, reinterpret_cast<double*>(spectrum.toArray()), ip, w);
 
             if(direction == -1)
             {
-                for (std::size_t j = 0; j <= 2 * this->N - 1; j++)
-                {
-                    nakedDataPointer[j] *= 1.0 / this->N;
-                }
+				spectrum *= 1.0 / static_cast<double>(this->N);
+
             }
 
 	   }
@@ -193,16 +189,12 @@ namespace Quasar
 
 	   void fftInternal(SignalSource<double, Container_t>& spectrum, int direction)
 	   {
-           double* nakedDataPointer = reinterpret_cast<double*>(spectrum.toArray());
 
-           // Ooura's function
-           rdft(this->N, direction, nakedDataPointer, ip, w);
+           rdft(this->N, direction, reinterpret_cast<double*>(spectrum.toArray()), ip, w);
 
            if(direction==-1)
            {
-			   for (int j = 0; j <= this->N - 1; j++) {
-				   nakedDataPointer[j] *= 2.0 / static_cast<double>(this->N);
-			   }
+			   spectrum *= 2.0 / static_cast<double>(this->N);
            }
 	   }
 

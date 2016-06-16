@@ -404,7 +404,9 @@ public std::iterator<std::forward_iterator_tag, int>
          * @param x multiplier
          * @return updated source
          */
-        SignalSource<DataType, Container_t>& operator*=(DataType x)
+
+        template <typename Numeric>
+        SignalSource<DataType, Container_t>& operator*=(Numeric x)
 		{
             std::transform(
                 std::begin(m_data),
