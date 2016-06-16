@@ -44,21 +44,168 @@ extern "C" {
 namespace Quasar
 {
     /**
-     * A wrapper for the FFT algorithm found in Ooura mathematical packages.
+     * A wrapper for the complex FFT algorithm found in Ooura mathematical packages.
      */
-    class AQUILA_EXPORT OouraFft : public Fft
+	template<template<typename ...> class Container_t = std::vector>
+    class OouraFftComplex : public Fft<std::complex<double>, Container_t>
     {
     public:
-        OouraFft(std::size_t length);
-        ~OouraFft();
+    	/**
+    	    * Initializes the transform for a given input length.
+    	    *
+    	    * Prepares the work area for Ooura's algorithm.
+    	    *
+    	    * @param length input signal size (usually a power of 2)
+    	    */
+    	   OouraFftComplex(std::size_t length):
+    	       Fft<std::complex<double>, Container_t>::Fft(length),
+    	       // according to the description: "length of ip >= 2+sqrt(n)"
+    	       ip(new int[static_cast<std::size_t>(2 + std::sqrt(static_cast<double>(this->N)))]),
+    	       w(new double[this->N / 2])
+    	   {
+    	       ip[0] = 0;
+    	   }
 
-        virtual SpectrumType fft(const SampleType x[]);
-        virtual void ifft(SpectrumType spectrum, double x[]);
-        virtual void fftComplexInPlace(SpectrumType& specrum);
-        virtual void ifftComplexInPlace(SpectrumType& spectrum);
-        virtual SpectrumType fft(SpectrumType spectrum);
+    	   /**
+    	    * Destroys the transform object and cleans up working area.
+    	    */
+    	   ~OouraFftComplex()
+    	   {
+    	       delete [] w;
+    	       delete [] ip;
+    	   }
+
+        /**
+         * Applies the inverse transform to the spectrum. No Scaling is performed on the output.
+         *
+         * @param spectrum input spectrum
+         * @author Robert C. Taylor
+         */
+        virtual void ifft(SignalSource<std::complex<double>, Container_t>& spectrum)
+        {
+        	fftInternal(spectrum, -1);
+        }
+
+        /**
+		* Applies the transform to a complex signal in place.
+		* @author Robert C. Taylor
+		* @param spectrum input signal to be transformed.
+		*/
+	   virtual void fft(SignalSource<std::complex<double>, Container_t>& spectrum)
+	   {
+		   fftInternal(spectrum, 1);
+	   }
+
+
 
     private:
+
+	   void fftInternal(SignalSource<std::complex<double>, Container_t>& spectrum, int direction)
+	   {
+           static_assert(
+                sizeof(std::complex<double>[2]) == sizeof(double[4]),
+                    "complex<double> has the same memory layout as two consecutive doubles"
+            );
+            // interpret the vector as consecutive pairs of doubles (re,im)
+            double* nakedDataPointer = reinterpret_cast<double*>(spectrum.toArray());
+
+            // Ooura's function
+            cdft(2*this->N, direction, nakedDataPointer, ip, w);
+
+            if(direction == -1)
+            {
+                for (std::size_t j = 0; j <= 2 * this->N - 1; j++)
+                {
+                    nakedDataPointer[j] *= 1.0 / this->N;
+                }
+            }
+
+	   }
+
+        /**
+         * Work area for bit reversal.
+         */
+        int* ip;
+
+        /**
+         * Cos/sin table.
+         */
+        double* w;
+    };
+
+
+    /**
+     * A wrapper for the real FFT algorithm found in Ooura mathematical packages.
+     * Does n/2 decimation on the real signal.
+     */
+	template<template<typename ...> class Container_t = std::vector>
+    class OouraFftReal : public Fft<double, Container_t>
+    {
+    public:
+
+    	/**
+		* Initializes the transform for a given input length.
+		*
+		* Prepares the work area for Ooura's algorithm.
+		*
+		* @param length input signal size (usually a power of 2)
+		*/
+	   OouraFftReal(std::size_t length):
+		   Fft<double, Container_t>::Fft(length),
+		   // according to the description: "length of ip >= 2+sqrt(n/2)"
+		   ip(new int[static_cast<std::size_t>(2 + std::sqrt(static_cast<double>(this->N / 2)))]),
+		   w(new double[this->N / 2])
+	   {
+		   ip[0] = 0;
+	   }
+
+	   /**
+		* Destroys the transform object and cleans up working area.
+		*/
+	   ~OouraFftReal()
+	   {
+		   delete [] w;
+		   delete [] ip;
+	   }
+
+        /**
+         * Applies the inverse transform to a real signal in place. Decimates by 2.
+         *
+         * @param spectrum input spectrum
+         * @author Robert C. Taylor
+         */
+        virtual void ifft(SignalSource<double, Container_t>& spectrum)
+        {
+        	fftInternal(spectrum, -1);
+        }
+
+        /**
+		* Applies the transform to a complex signal in place.
+		* @author Robert C. Taylor
+		* @param spectrum input signal to be transformed.
+		*/
+	   virtual void fft(SignalSource<double, Container_t>& spectrum)
+	   {
+		   fftInternal(spectrum, 1);
+	   }
+
+    private:
+
+	   void fftInternal(SignalSource<double, Container_t>& spectrum, int direction)
+	   {
+           double* nakedDataPointer = reinterpret_cast<double*>(spectrum.toArray());
+
+           // Ooura's function
+           rdft(this->N, direction, nakedDataPointer, ip, w);
+
+           if(direction==-1)
+           {
+			   for (int j = 0; j <= this->N - 1; j++) {
+				   nakedDataPointer[j] *= 2.0 / static_cast<double>(this->N);
+			   }
+           }
+	   }
+
         /**
          * Work area for bit reversal.
          */
@@ -70,5 +217,15 @@ namespace Quasar
         double* w;
     };
 }
+
+
+
+
+
+
+
+
+
+
 
 #endif // OOURAFFT_H

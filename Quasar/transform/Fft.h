@@ -19,6 +19,7 @@
 #define FFT_H
 
 #include "../global.h"
+#include "../source/SignalSource.h"
 #include <cstddef>
 
 namespace Quasar
@@ -39,7 +40,8 @@ namespace Quasar
      * plan once - in the constructor (based on FFT length). Later calls
      * to fft() / ifft() should reuse the already created plan/cache.
      */
-    class AQUILA_EXPORT Fft
+	SignalSourceTemplate
+    class Fft
     {
     public:
         /**
@@ -62,20 +64,19 @@ namespace Quasar
         }
 
         /**
-         * Applies the forward FFT transform to the signal.
+         * Applies the forward FFT transform to the signal source.
          *
          * @param x input signal
-         * @return calculated spectrum
          */
-        virtual SpectrumType fft(const SampleType x[]) = 0;
+        virtual void fft(SignalSourceType& signal) = 0;
 
         /**
-         * Applies the inverse FFT transform to the spectrum.
+         * Applies the inverse FFT transform to the signal source.
          *
          * @param spectrum input spectrum
-         * @param x output signal
          */
-        virtual void ifft(SpectrumType spectrum, double x[]) = 0;
+        virtual void ifft(SignalSourceType& signal) = 0;
+
 
     protected:
         /**

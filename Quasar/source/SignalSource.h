@@ -185,7 +185,21 @@ public:
 	}
 
 	/**
-	 * Returns sample data (read-only!) as a const C-style array.
+	 * Returns sample data as a C-style array.
+	 *
+	 * Because vector guarantees to be contiguous in memory, we can
+	 * return the address of the first element in the vector.
+	 * It is valid only until next operation which modifies the vector.
+	 *
+	 * @return C-style array containing sample data
+	 */
+	virtual DataType* toArray()
+	{
+		return m_data.data();
+	}
+
+	/**
+	 * Returns sample data as a C-style array.
 	 *
 	 * Because vector guarantees to be contiguous in memory, we can
 	 * return the address of the first element in the vector.
@@ -195,7 +209,7 @@ public:
 	 */
 	virtual const DataType* toArray() const
 	{
-		return &m_data[0];
+		return m_data.data();
 	}
 
 	/**
