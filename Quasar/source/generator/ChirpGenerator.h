@@ -20,15 +20,15 @@
  * Generates a linear chirp.
  *
  * @package Quasar
- * @version 4.0.0
+ * @version 4.0.0-beta
  * @author Robert C. Taylor
  * @date 2016
  * @license  http://www.apache.org/licenses/LICENSE-2.0
  * @since 4.0.0
  */
 
-#ifndef CHIRPGENERATOR_H_
-#define CHIRPGENERATOR_H_
+#ifndef QUASAR_SOURCE_GENERATOR_CHIRPGENERATOR_H_
+#define QUASAR_SOURCE_GENERATOR_CHIRPGENERATOR_H_
 
 #include "Generator.h"
 #include <cmath>
@@ -143,4 +143,4 @@ template <typename T, template<typename ...> class Container_t = std::vector>
 using ComplexChirpGenerator = ChirpGenerator<std::complex<T>, T, &ComplexExp<T>, Container_t>;
 
 } /* namespace Aquila */
-#endif /* CHIRPGENERATOR_H_ */
+#endif /* QUASAR_SOURCE_GENERATOR_CHIRPGENERATOR_H_ */

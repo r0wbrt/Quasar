@@ -14,6 +14,9 @@
  *  limitations under the License.
  */
 
+#ifndef QUASAR_EXPERIMENTAL_FIXEDTYPE_H
+#define QUASAR_EXPERIMENTAL_FIXEDTYPE_H
+
 namespace Quasar
 {
 
@@ -44,3 +47,6 @@ private:
 };
 
 }
+
+
+#endif

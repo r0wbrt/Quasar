@@ -3,11 +3,7 @@
  *
  * Miscellaneous utility functions.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
- * @package Aquila
+ * @package Quasar
  * @version 3.0.0-dev
  * @author Zbigniew Siciarz
  * @date 2007-2014
@@ -199,6 +195,7 @@ namespace Quasar
 
         return max;
     }
+
 }
 
 #endif // FUNCTIONS_H

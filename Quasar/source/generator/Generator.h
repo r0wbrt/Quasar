@@ -19,20 +19,15 @@
  *
  * An interface for signal generators.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
  * @package Quasar
- * @version 4.0.0
+ * @version 4.0.0-beta
  * @author Zbigniew Siciarz, Robert C. Taylor
- * @date 2007-2014
- * @license http://www.opensource.org/licenses/mit-license.php http://www.apache.org/licenses/LICENSE-2.0
+ * @date 2007-2016
  * @since 3.0.0
  */
 
-#ifndef GENERATOR_H
-#define GENERATOR_H
+#ifndef QUASAR_SOURCE_GENERATOR_GENERATOR_H
+#define QUASAR_SOURCE_GENERATOR_GENERATOR_H
 
 #include "../SignalSource.h"
 #include "../../global.h"
@@ -129,4 +124,4 @@ namespace Quasar
     };
 }
 
-#endif // GENERATOR_H
+#endif // QUASAR_SOURCE_GENERATOR_GENERATOR_H

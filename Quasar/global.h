@@ -19,33 +19,19 @@
  *
  * Global library typedefs and constants.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
- * @package Aquila
- * @version 3.0.0-dev
+ * @package Quasar
+ * @version 4.0.0-beta
  * @author Zbigniew Siciarz, Robert C. Taylor
  * @date 2007-2016
- * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @since 2.4.1
  */
 
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#ifndef QUASAR_GLOBAL_H
+#define QUASAR_GLOBAL_H
 
 #include <complex>
 #include <vector>
 
-#if defined (_WIN32) && defined(BUILD_SHARED_LIBS)
-#  if defined(Aquila_EXPORTS)
-#    define AQUILA_EXPORT  __declspec(dllexport)
-#  else
-#    define AQUILA_EXPORT  __declspec(dllimport)
-#  endif
-#else
-#    define AQUILA_EXPORT
-#endif
 
 /**
  * Main library namespace.
@@ -55,12 +41,12 @@ namespace Quasar
     /**
      * Library version in an easily comparable format.
      */
-    const long VERSION_NUMBER = 0x300100;
+    const long VERSION_NUMBER = 0x400000;
 
     /**
      * Library version as a string.
      */
-    const char* const VERSION_STRING = "3.1.0-dev";
+    const char* const VERSION_STRING = "4.0.0-beta";
 
     /**
      * Sample value type.
@@ -76,11 +62,6 @@ namespace Quasar
      * Our standard complex number type, using double precision.
      */
     typedef std::complex<double> ComplexType;
-
-    /**
-     * Spectrum type - a vector of complex values.
-     */
-    typedef std::vector<ComplexType> SpectrumType;
 }
 
-#endif // GLOBAL_H
+#endif // QUASAR_GLOBAL_H

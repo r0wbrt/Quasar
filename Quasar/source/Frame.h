@@ -19,20 +19,15 @@
  *
  * Handling signal frames.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
  * @package Aquila
  * @version 3.0.0-dev
- * @author Zbigniew Siciarz
- * @date 2007-2014
- * @license http://www.opensource.org/licenses/mit-license.php MIT
+ * @author Zbigniew Siciarz,Robert C. Taylor
+ * @date 2007-2016
  * @since 0.2.2
  */
 
-#ifndef FRAME_H
-#define FRAME_H
+#ifndef QUASAR_SOURCE_FRAME_H
+#define QUASAR_SOURCE_FRAME_H
 
 #include "../global.h"
 #include "SignalSource.h"
@@ -41,7 +36,7 @@
 
 namespace Quasar {
 /**
- * An ecapsulation of a single frame of the signal.
+ * An encapsulation of a single frame of the signal.
  *
  * The Frame class wraps a signal frame (short fragment of a signal).
  * Frame itself can be considered as a signal source, being a "window"
@@ -188,4 +183,4 @@ private:
 };
 
 }
-#endif // FRAME_H
+#endif // QUASAR_SOURCE_FRAME_H

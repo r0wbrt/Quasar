@@ -15,8 +15,8 @@
  * @since 0.3.3
  */
 
-#ifndef MELFILTER_H
-#define MELFILTER_H
+#ifndef QUASAR_FILTER_MELFILTER_H
+#define QUASAR_FILTER_MELFILTER_H
 
 #include "../global.h"
 #include <cstddef>
@@ -86,4 +86,4 @@ namespace Quasar
     };
 }
 
-#endif // MELFILTER_H
+#endif // QUASAR_FILTER_MELFILTER_H

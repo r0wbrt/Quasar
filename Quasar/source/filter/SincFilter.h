@@ -29,12 +29,12 @@
  */
 
 
-#include "../source/SignalSource.h"
+#include "../SignalSource.h"
 #include <boost/math/special_functions/sinc.hpp>
 #include <cmath>
 
-#ifndef QUASAR_SINCFILTER_H
-#define QUASAR_SINCFILTER_H
+#ifndef QUASAR_FILTER_SINCFILTER_H
+#define QUASAR_FILTER_SINCFILTER_H
 
 namespace Quasar
 {

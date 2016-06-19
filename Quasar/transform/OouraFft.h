@@ -19,15 +19,10 @@
  *
  * A wrapper for the FFT algorithm found in Ooura mathematical packages.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
- * @package Aquila
- * @version 3.0.0-dev
+ * @package Quasar
+ * @version 4.0.0-beta
  * @author Zbigniew Siciarz, Robert C. Taylor
  * @date 2007-2016
- * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @since 3.0.0
  */
 
@@ -165,7 +160,7 @@ namespace Quasar
 	   }
 
         /**
-         * Applies the inverse transform to a real signal in place. Decimates by 2.
+         * Applies the inverse transform to a real signal in place. Up-samples by 2.
          *
          * @param spectrum input spectrum
          * @author Robert C. Taylor
@@ -176,7 +171,7 @@ namespace Quasar
         }
 
         /**
-		* Applies the transform to a complex signal in place.
+		* Applies the transform to a real signal in place, decimates by 2.
 		* @author Robert C. Taylor
 		* @param spectrum input signal to be transformed.
 		*/

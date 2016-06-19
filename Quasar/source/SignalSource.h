@@ -19,20 +19,15 @@
  *
  * A base signal source class.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
- * @package Aquila
- * @version 3.0.0-dev
+ * @package Quasar
+ * @version 4.0.0-beta
  * @author Zbigniew Siciarz, Robert C. Taylor
  * @date 2007-2016
- * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @since 3.0.0
  */
 
-#ifndef SIGNALSOURCE_H
-#define SIGNALSOURCE_H
+#ifndef QUASAR_SOURCE_SIGNALSOURCE_H
+#define QUASAR_SOURCE_SIGNALSOURCE_H
 
 #include "../global.h"
 #include <cstddef>
@@ -633,4 +628,4 @@ SignalSourceTemplate DataType ApplyFirFilter(const SignalSource<DataType, Contai
 }
 }
 
-#endif // SIGNALSOURCE_H
+#endif //QUASAR_SOURCE_SIGNALSOURCE_H

@@ -19,20 +19,15 @@
  *
  * A lightweight wrapper for a vector of Frames.
  *
- * This file is part of the Aquila DSP library.
- * Aquila is free software, licensed under the MIT/X11 License. A copy of
- * the license is provided with the library in the LICENSE file.
- *
  * @package Aquila
- * @version 3.0.0-dev
- * @author Zbigniew Siciarz
+ * @version 4.0.0-beta
+ * @author Zbigniew Siciarz, Robert C. Taylor
  * @date 2007-2014
- * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @since 3.0.0
  */
 
-#ifndef FRAMESCOLLECTION_H
-#define FRAMESCOLLECTION_H
+#ifndef QUASAR_SOURCE_FRAMESCOLLECTION_H
+#define QUASAR_SOURCE_FRAMESCOLLECTION_H
 
 #include "../global.h"
 #include "Frame.h"
@@ -283,4 +278,4 @@ private:
 	std::size_t m_samplesPerFrame;
 };}
 
-#endif // FRAMESCOLLECTION_H
+#endif // QUASAR_SOURCE_FRAMESCOLLECTION_H

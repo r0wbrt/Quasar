@@ -27,11 +27,11 @@
  * @since 4.0.0
  */
 
-#ifndef QUASAR_RAISEDCOSINEFILTER_H_
-#define QUASAR_RAISEDCOSINEFILTER_H_
+#ifndef QUASAR_FILTER_RAISEDCOSINEFILTER_H_
+#define QUASAR_FILTER_RAISEDCOSINEFILTER_H_
 
 
-#include "../source/SignalSource.h"
+#include "../SignalSource.h"
 #include <boost/math/special_functions/sinc.hpp>
 #include <cmath>
 

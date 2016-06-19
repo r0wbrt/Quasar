@@ -15,8 +15,8 @@
  * @since 0.3.3
  */
 
-#ifndef MELFILTERBANK_H
-#define MELFILTERBANK_H
+#ifndef QUASAR_FILTER_MELFILTERBANK_H
+#define QUASAR_FILTER_MELFILTERBANK_H
 
 #include "../global.h"
 #include "MelFilter.h"
@@ -75,4 +75,4 @@ namespace Quasar
         std::size_t N;
     };
 }
-#endif // MELFILTERBANK_H
+#endif // QUASAR_FILTER_MELFILTERBANK_H
