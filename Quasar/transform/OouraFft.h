@@ -30,9 +30,12 @@
 #define QUASAR_TRANSFORMS_OOURAFFT_H
 
 #include "Fft.h"
+namespace Ooura
+{
 
-    void Ooura::cdft(int, int, double *, int *, double *);
-    void Ooura::rdft(int, int, double *, int *, double *);
+    void cdft(int, int, double *, int *, double *);
+    void rdft(int, int, double *, int *, double *);
+};
 
 
 namespace Quasar

@@ -68,7 +68,7 @@ namespace Quasar
             std::streamsize fileSize = fs.tellg();
             // seek back to the beginning so read() can access all content
             fs.seekg(0, std::ios::beg);
-            std::size_t samplesCount = fileSize / sizeof(Numeric);
+            std::size_t samplesCount = fileSize / sizeof(DataType);
             // read raw data into a temporary buffer
             DataType* buffer = new DataType[samplesCount];
             fs.read((char*)buffer, fileSize);

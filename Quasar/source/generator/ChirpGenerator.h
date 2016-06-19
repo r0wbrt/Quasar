@@ -33,7 +33,7 @@
 #include "Generator.h"
 #include <cmath>
 
-namespace Aquila
+namespace Quasar
 {
 
 
@@ -114,8 +114,6 @@ public:
 			this->m_data[i] = this->m_amplitude * expFun(phaseOffset + 2.0 * M_PI * (normStartFreq * pos + ((k / 2) * pos * pos)));
 		}
 	}
-
-	virtual ~ChirpGenerator();
 private:
 
 	/*The frequency the chirp begins at.*/

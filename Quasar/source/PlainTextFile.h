@@ -32,6 +32,7 @@
 #include "../global.h"
 #include "SignalSource.h"
 #include <string>
+#include <fstream>
 
 namespace Quasar
 {
@@ -72,7 +73,7 @@ namespace Quasar
          * @param source source of the data to save
          * @param filename destination file
          */
-        void PlainTextFile::save(const SignalSourceType& source,
+        void save(const SignalSourceType& source,
                                  const std::string& filename)
         {
             std::fstream fs;
@@ -82,7 +83,6 @@ namespace Quasar
                       std::ostream_iterator<DataType>(fs, "\n"));
             fs.close();
         }
-    }
     };
 }
 

@@ -39,9 +39,9 @@ namespace Quasar
 	#define GeneratorClassTemplate template <typename DataType = SampleType, typename FieldType = DataType, template<typename ...> class Container_t = std::vector >
 	#define GeneratorClassTemplateOpen(params) template <typename DataType = SampleType, typename FieldType = DataType, params, template<typename ...> class Container_t = std::vector>
 	/*Macro to wrap a class derived from the generator class that does not need any additional template parameters.*/
-	#define GeneratorClass(className) GeneratorClassTemplate class className : public Aquila::Generator<DataType, FieldType, Container_t>
+	#define GeneratorClass(className) GeneratorClassTemplate class className : public Quasar::Generator<DataType, FieldType, Container_t>
 	/*Macro to wrap the Generator class to hiding the template parameters.*/
-	#define GeneratorType Generator<DataType, FieldType, Container_t>
+	#define GeneratorType Quasar::Generator<DataType, FieldType, Container_t>
     /**
      * The base interface for signal generators.
      */
