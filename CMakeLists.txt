@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(Quasar CXX)
 
-set(Quasar_VERSION_MAJOR 3)
+set(Quasar_VERSION_MAJOR 4)
 set(Quasar_VERSION_MINOR 0)
 set(Quasar_VERSION_PATCH 0)
-set(Quasar_VERSION_SUFFIX "-dev")
+set(Quasar_VERSION_SUFFIX "-beta")
 set(Quasar_VERSION "${Quasar_VERSION_MAJOR}.${Quasar_VERSION_MINOR}.${Quasar_VERSION_PATCH}${Quasar_VERSION_SUFFIX}")
 
 
@@ -53,24 +53,15 @@ set(Quasar_HEADERS
     Quasar/quasar.h
     Quasar/global.h
     Quasar/functions.h
-#    Quasar/Exceptions.h
-#    Quasar/source.h
-#    Quasar/transform.h
-#    Quasar/filter.h
-#    Quasar/ml.h
-#    Quasar/filter/MelFilter.h
-#    Quasar/filter/MelFilterBank.h
-#    Quasar/ml/DtwPoint.h
-#    Quasar/ml/Dtw.h
+    Quasar/source.h
+    Quasar/transform.h
     Quasar/source/SignalSource.h
     Quasar/source/Frame.h
     Quasar/source/FramesCollection.h
     Quasar/source/PlainTextFile.h
     Quasar/source/RawPcmFile.h
-#    Quasar/source/WaveFile.h
-#    Quasar/source/WaveFileHandler.h
-	Quasar/filter/RaisedCosineFilter.h
-	Quasar/filter/SincFilter.h
+	Quasar/source/filter/RaisedCosineFilter.h
+	Quasar/source/filter/SincFilter.h
     Quasar/source/generator/Generator.h
     Quasar/source/generator/SineGenerator.h
     Quasar/source/generator/SquareGenerator.h
@@ -88,29 +79,12 @@ set(Quasar_HEADERS
     Quasar/source/window/HannWindow.h
     Quasar/source/window/RectangularWindow.h
     Quasar/transform/Fft.h
-    Quasar/transform/Dft.h
-    Quasar/transform/QuasarFft.h
     Quasar/transform/OouraFft.h
-    Quasar/transform/FftFactory.h
-    Quasar/transform/Dct.h
-    Quasar/transform/Mfcc.h
-#    Quasar/transform/Spectrogram.h
 )
 
 # library sources
 set(Quasar_SOURCES
-#    Quasar/filter/MelFilter.cpp
-#    Quasar/filter/MelFilterBank.cpp
-#    Quasar/ml/Dtw.cpp
-#   Quasar/source/WaveFile.cpp
-#   Quasar/source/WaveFileHandler.cpp
-#    Quasar/transform/Dft.cpp
-#    Quasar/transform/QuasarFft.cpp
-#    Quasar/transform/OouraFft.cpp
-#    Quasar/transform/FftFactory.cpp
-#    Quasar/transform/Dct.cpp
-#    Quasar/transform/Mfcc.cpp
-#    Quasar/transform/Spectrogram.cpp
+
 )
 
 # SFML wrappers
@@ -173,12 +147,6 @@ if(Quasar_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-#tests
-if(Quasar_BUILD_TESTS)
-    enable_testing()
-    set(UNITTESTPP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/unittestpp/")
-    add_subdirectory(tests)
-endif()
 
 ################################################################################
 #
