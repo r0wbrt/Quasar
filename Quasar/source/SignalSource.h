@@ -169,6 +169,20 @@ public:
 	}
 
 	/**
+	 * Changes the length of the SignalSource, adding or removing samples
+	 * as needed.
+	 *
+	 * @param length The new length of the SignalSource
+	 * @param value The value new samples should be set to if the new length is
+	 * greater then the current length of the signal. Defaults to 0.
+	 * @return Returns the SignalSource object being modifified.
+	 */
+	virtual SignalSource& setSamplesCount(std::size_t length, DataType value = 0)
+	{
+		this->m_data.resize(length, value);
+		return *(this);
+	}
+	/**
 	 * Returns sample located at the "position" in the signal.
 	 *
 	 * @param position sample index in the signal
@@ -430,6 +444,42 @@ public std::iterator<std::forward_iterator_tag, int>
             return *this;
 		}
 
+        /**
+         * Overloads the [] operator for signal source for
+         * sample access.
+         *
+         * @param index The signal sample to get.
+         * @return Value of the sample at index.
+         */
+        DataType& operator[](std::size_t index)
+        {
+        	return this->m_data[index];
+        }
+
+        /**
+		 * Overloads the [] operator for signal source for
+		 * sample access.
+		 *
+		 * @param index The signal sample to get.
+		 * @return Value of the sample at index.
+		 */
+        const DataType& operator[](std::size_t index) const
+        {
+        	return this->m_data[index];
+        }
+
+        /**
+         * Signal source assignment operator.
+         *
+         * @param from The signal source that is being copied from.
+         * @return this object after copying the values from from.
+         */
+        SignalSource& operator =(const SignalSource& from)
+        {
+        	this->m_data = from.m_data;
+        	this->m_sampleFrequency = from.m_sampleFrequency;
+        	return *(this);
+        }
     protected:
         /**
          * Actual sample data.

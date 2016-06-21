@@ -37,7 +37,7 @@ namespace Quasar
     /**
      * Hamming window.
      */
-	SignalSourceTemplateMod(DataType Cos(DataType) = &std::cos)
+	SignalSourceTemplateMod(typename FieldType = DataType, DataType Cos(FieldType) = &std::cos)
     class HammingWindow : public SignalSourceType
     {
     public:
@@ -53,7 +53,7 @@ namespace Quasar
             for (std::size_t n = 0; n < size; ++n)
             {
                 this->m_data.push_back(
-                    0.53836 - 0.46164 * Cos(2.0 * M_PI * n / static_cast<DataType>(size - 1))
+                    0.53836 - 0.46164 * Cos(2.0 * M_PI * n / static_cast<FieldType>(size - 1))
                 );
             }
         }
