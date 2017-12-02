@@ -1,3 +1,5 @@
+Note - This library is no longer maintained  as it was originally developed with the intention of creating a SDR radar. See https://github.com/r0wbrt/YASDRR for the realization of this goal.
+
 About
 =======
 
